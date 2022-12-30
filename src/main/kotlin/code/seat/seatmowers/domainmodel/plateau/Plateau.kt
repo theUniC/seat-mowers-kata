@@ -4,9 +4,8 @@ import code.seat.seatmowers.application.command.CreatePlateau
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
-import org.axonframework.spring.stereotype.Aggregate
 import org.axonframework.modelling.command.AggregateLifecycle.apply
-import org.springframework.util.Assert
+import org.axonframework.spring.stereotype.Aggregate
 
 @Aggregate
 class Plateau {

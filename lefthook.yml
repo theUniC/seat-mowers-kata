@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: true
+  commands:
+    ktlint:
+      glob: "*.{kt,kts}"
+      run: ./gradlew --no-daemon ktlintCheck
+    tests:
+      glob: "*.{kt,kts}"
+      run: ./gradlew --no-daemon test
