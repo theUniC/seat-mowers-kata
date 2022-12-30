@@ -39,6 +39,7 @@ val springBootVersion = "2.7.7"
 val mysqlConnectorJavaVersion = "8.0.31"
 val flywayVersion = "9.10.1"
 val springShellVersion = "2.1.4"
+val lombokPluginVersion = "1.18.24"
 
 ext["springShellVersion"] = springShellVersion
 
@@ -61,6 +62,8 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:$springDocOpenApiVersion")
     implementation("org.springdoc:springdoc-openapi-webmvc-core:$springDocOpenApiVersion")
     runtimeOnly("com.mysql:mysql-connector-j:$mysqlConnectorJavaVersion")
+    compileOnly("org.projectlombok:lombok:$lombokPluginVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokPluginVersion")
 
     // Dev
     compileOnly("org.flywaydb:flyway-core:$flywayVersion")
@@ -71,6 +74,8 @@ dependencies {
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
     testImplementation("org.axonframework:axon-test:$axonVersion")
     testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:$spekVersion")
+    testCompileOnly("org.projectlombok:lombok:$lombokPluginVersion")
+    testAnnotationProcessor("org.projectlombok:lombok:$lombokPluginVersion")
 }
 
 dependencyManagement {
