@@ -3,6 +3,13 @@ package code.seat.seatmowers.domainmodel.plateau
 import code.seat.seatmowers.application.command.CreatePlateau
 import code.seat.seatmowers.application.command.DeployRover
 import code.seat.seatmowers.application.command.MoveRover
+import code.seat.seatmowers.domainmodel.mower.Direction
+import code.seat.seatmowers.domainmodel.mower.Movement
+import code.seat.seatmowers.domainmodel.mower.MowerWasDeployed
+import code.seat.seatmowers.domainmodel.mower.MowerWasMoved
+import code.seat.seatmowers.domainmodel.mower.Position
+import code.seat.seatmowers.domainmodel.mower.PositionIsAlreadyOccupied
+import code.seat.seatmowers.domainmodel.mower.Rover
 import lombok.Getter
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -38,14 +45,14 @@ class Plateau {
         assertCoordinatesAreWithinPlateauBounds(command.x, command.y)
         assertDirectionIsValid(command.direction)
 
-        apply(RoverWasDeployed(command.id, command.x, command.y, command.direction))
+        apply(MowerWasDeployed(command.id, command.x, command.y, command.direction))
     }
 
     @CommandHandler
     fun moveRover(command: MoveRover) {
         assertMovementIsValid(command.to)
         assertRoverExists(command.roverId)
-        apply(RoverWasMoved(command.plateauId, command.roverId, command.to))
+        apply(MowerWasMoved(command.plateauId, command.roverId, command.to))
     }
 
     @EventSourcingHandler
@@ -56,7 +63,7 @@ class Plateau {
     }
 
     @EventSourcingHandler
-    fun on(event: RoverWasDeployed) {
+    fun on(event: MowerWasDeployed) {
         val position = Position(Coordinates(event.x, event.y), Direction.fromLiteral(event.direction))
         assertPositionIsNotOccupied(position)
 
@@ -64,7 +71,7 @@ class Plateau {
     }
 
     @EventSourcingHandler
-    fun on(event: RoverWasMoved) {
+    fun on(event: MowerWasMoved) {
         rovers[event.id]!!.move(Movement.valueOf(event.to), this)
     }
 

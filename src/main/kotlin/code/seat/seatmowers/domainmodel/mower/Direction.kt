@@ -1,4 +1,4 @@
-package code.seat.seatmowers.domainmodel.plateau
+package code.seat.seatmowers.domainmodel.mower
 
 enum class Direction {
     NORTH {

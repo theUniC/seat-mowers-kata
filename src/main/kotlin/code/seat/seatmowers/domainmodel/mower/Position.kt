@@ -1,5 +1,6 @@
-package code.seat.seatmowers.domainmodel.plateau
+package code.seat.seatmowers.domainmodel.mower
 
+import code.seat.seatmowers.domainmodel.plateau.Coordinates
 import lombok.Value
 
 @Value

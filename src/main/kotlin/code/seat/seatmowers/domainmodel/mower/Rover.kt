@@ -1,5 +1,6 @@
-package code.seat.seatmowers.domainmodel.plateau
+package code.seat.seatmowers.domainmodel.mower
 
+import code.seat.seatmowers.domainmodel.plateau.Plateau
 import org.axonframework.modelling.command.EntityId
 import org.springframework.util.Assert
 import java.util.UUID
