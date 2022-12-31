@@ -112,10 +112,6 @@ flyway {
     driver = "com.mysql.cj.jdbc.Driver"
 }
 
-springBoot {
-    mainClass.set("code.seat.seatmowers.infrastructure.delivery.spring.Application")
-}
-
 buildscript {
     dependencies {
         classpath("org.flywaydb:flyway-mysql:9.10.1")

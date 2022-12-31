@@ -10,7 +10,6 @@ import code.seat.seatmowers.domainmodel.mower.MowerWasMoved
 import code.seat.seatmowers.domainmodel.mower.Position
 import code.seat.seatmowers.domainmodel.mower.PositionIsAlreadyOccupied
 import code.seat.seatmowers.domainmodel.mower.Rover
-import lombok.Getter
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -22,7 +21,6 @@ import org.springframework.util.Assert
 import java.util.UUID
 
 @Aggregate
-@Getter
 class Plateau {
     @AggregateIdentifier
     private lateinit var id: String
