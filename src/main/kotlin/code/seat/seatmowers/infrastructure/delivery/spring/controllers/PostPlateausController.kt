@@ -1,6 +1,6 @@
 package code.seat.seatmowers.infrastructure.delivery.spring.controllers
 
-import code.seat.seatmowers.application.command.CreatePlateau
+import code.seat.seatmowers.application.command.CreatePlateauCommand
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauInputDto
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauOutputDto
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -20,7 +20,7 @@ class PostPlateausController(val commandGateway: CommandGateway) {
     @ResponseBody
     fun handleRequest(@RequestBody plateauInputDto: PlateauInputDto): ResponseEntity<PlateauOutputDto> {
         val plateauId = UUID.randomUUID()
-        commandGateway.sendAndWait<Any>(CreatePlateau(plateauId, plateauInputDto.x, plateauInputDto.y))
+        commandGateway.sendAndWait<Any>(CreatePlateauCommand(plateauId, plateauInputDto.x, plateauInputDto.y))
         return ResponseEntity.ok(PlateauOutputDto(plateauId, plateauInputDto.x, plateauInputDto.y))
     }
 }

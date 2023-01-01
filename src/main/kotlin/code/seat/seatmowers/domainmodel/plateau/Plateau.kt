@@ -1,8 +1,8 @@
 package code.seat.seatmowers.domainmodel.plateau
 
-import code.seat.seatmowers.application.command.CreatePlateau
-import code.seat.seatmowers.application.command.DeployRover
-import code.seat.seatmowers.application.command.MoveRover
+import code.seat.seatmowers.application.command.CreatePlateauCommand
+import code.seat.seatmowers.application.command.DeployRoverCommand
+import code.seat.seatmowers.application.command.MoveRoverCommand
 import code.seat.seatmowers.domainmodel.mower.Direction
 import code.seat.seatmowers.domainmodel.mower.Movement
 import code.seat.seatmowers.domainmodel.mower.MowerWasDeployed
@@ -30,7 +30,7 @@ class Plateau {
     private lateinit var rovers: MutableMap<UUID, Rover>
 
     @CommandHandler
-    constructor(command: CreatePlateau) {
+    constructor(command: CreatePlateauCommand) {
         val coordinates = Coordinates(command.x, command.y)
         apply(NewPlateauWasCreated(command.id, coordinates.x, coordinates.y))
     }
@@ -39,7 +39,7 @@ class Plateau {
     fun rovers() = rovers.values.toList()
 
     @CommandHandler
-    fun deployRover(command: DeployRover) {
+    fun deployRover(command: DeployRoverCommand) {
         assertCoordinatesAreWithinPlateauBounds(command.x, command.y)
         assertDirectionIsValid(command.direction)
 
@@ -47,7 +47,7 @@ class Plateau {
     }
 
     @CommandHandler
-    fun moveRover(command: MoveRover) {
+    fun moveRover(command: MoveRoverCommand) {
         assertMovementIsValid(command.to)
         assertRoverExists(command.roverId)
         apply(MowerWasMoved(command.plateauId, command.roverId, command.to))

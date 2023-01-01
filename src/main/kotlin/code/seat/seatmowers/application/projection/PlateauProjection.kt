@@ -1,7 +1,7 @@
-package code.seat.seatmowers.application.projections
+package code.seat.seatmowers.application.projection
 
 import code.seat.seatmowers.domainmodel.plateau.NewPlateauWasCreated
-import code.seat.seatmowers.infrastructure.delivery.spring.jpa.Plateau
+import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauOutputDto
 import org.axonframework.eventhandling.EventHandler
 import org.springframework.stereotype.Component
 import javax.persistence.EntityManager
@@ -10,7 +10,7 @@ import javax.persistence.EntityManager
 class PlateauProjection(private val entityManager: EntityManager) {
     @EventHandler
     fun on(event: NewPlateauWasCreated) {
-        val plateau = Plateau(event.newPlateauId, event.x, event.y)
+        val plateau = PlateauOutputDto(event.newPlateauId, event.x, event.y)
         entityManager.persist(plateau)
     }
 }

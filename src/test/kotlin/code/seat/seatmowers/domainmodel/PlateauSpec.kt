@@ -1,6 +1,6 @@
 package code.seat.seatmowers.domainmodel
 
-import code.seat.seatmowers.application.command.CreatePlateau
+import code.seat.seatmowers.application.command.CreatePlateauCommand
 import code.seat.seatmowers.domainmodel.plateau.NewPlateauWasCreated
 import code.seat.seatmowers.domainmodel.plateau.Plateau
 import org.axonframework.test.aggregate.AggregateTestFixture
@@ -20,14 +20,14 @@ object PlateauSpec : Spek({
             it("throws an exception when X coordinate is not valid") {
                 fixture
                     .givenNoPriorActivity()
-                    .`when`(CreatePlateau(UUID.randomUUID(), INVALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
+                    .`when`(CreatePlateauCommand(UUID.randomUUID(), INVALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
                     .expectException(IllegalStateException::class.java)
             }
 
             it("throws an exception when Y coordinate is not valid") {
                 fixture
                     .givenNoPriorActivity()
-                    .`when`(CreatePlateau(UUID.randomUUID(), VALID_COORDINATE_COMPONENT, INVALID_COORDINATE_COMPONENT))
+                    .`when`(CreatePlateauCommand(UUID.randomUUID(), VALID_COORDINATE_COMPONENT, INVALID_COORDINATE_COMPONENT))
                     .expectException(IllegalStateException::class.java)
             }
 
@@ -35,7 +35,7 @@ object PlateauSpec : Spek({
                 val id = UUID.randomUUID()
                 fixture
                     .givenNoPriorActivity()
-                    .`when`(CreatePlateau(id, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
+                    .`when`(CreatePlateauCommand(id, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(NewPlateauWasCreated(id, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
             }
