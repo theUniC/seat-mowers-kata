@@ -58,7 +58,9 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-webmvc-core:$springDocOpenApiVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion")
+    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion") {
+        exclude("org.axonframework", "axon-server-connector")
+    }
     implementation("org.axonframework:axon-metrics:$axonVersion")
     implementation("org.axonframework.extensions.kotlin:axon-kotlin:$axonKotlinVersion")
     implementation("me.paulschwarz:spring-dotenv:$springDotEnvVersion")
@@ -90,6 +92,7 @@ dependencyManagement {
 
 noArg {
     annotation("org.axonframework.spring.stereotype.Aggregate")
+    annotation("javax.persistence.Entity")
 }
 
 tasks.withType<KotlinCompile> {

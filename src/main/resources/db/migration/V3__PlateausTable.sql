@@ -1,0 +1,6 @@
+CREATE TABLE plateaus (
+    id BINARY(255) NOT NULL,
+    x INT NOT NULL,
+    y INT NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
