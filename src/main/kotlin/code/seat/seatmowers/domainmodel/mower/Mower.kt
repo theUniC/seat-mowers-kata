@@ -5,7 +5,7 @@ import org.axonframework.modelling.command.EntityId
 import org.springframework.util.Assert
 import java.util.UUID
 
-class Rover {
+class Mower {
     @EntityId
     private var id: String
     private var position: Position

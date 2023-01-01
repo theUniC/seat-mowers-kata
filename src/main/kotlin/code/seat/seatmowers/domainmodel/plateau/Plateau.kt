@@ -5,11 +5,11 @@ import code.seat.seatmowers.application.command.DeployRoverCommand
 import code.seat.seatmowers.application.command.MoveRoverCommand
 import code.seat.seatmowers.domainmodel.mower.Direction
 import code.seat.seatmowers.domainmodel.mower.Movement
+import code.seat.seatmowers.domainmodel.mower.Mower
 import code.seat.seatmowers.domainmodel.mower.MowerWasDeployed
 import code.seat.seatmowers.domainmodel.mower.MowerWasMoved
 import code.seat.seatmowers.domainmodel.mower.Position
 import code.seat.seatmowers.domainmodel.mower.PositionIsAlreadyOccupied
-import code.seat.seatmowers.domainmodel.mower.Rover
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -27,7 +27,7 @@ class Plateau {
     private lateinit var coordinates: Coordinates
 
     @AggregateMember(eventForwardingMode = ForwardMatchingInstances::class)
-    private lateinit var rovers: MutableMap<UUID, Rover>
+    private lateinit var rovers: MutableMap<UUID, Mower>
 
     @CommandHandler
     constructor(command: CreatePlateauCommand) {
@@ -65,7 +65,7 @@ class Plateau {
         val position = Position(Coordinates(event.x, event.y), Direction.fromLiteral(event.direction))
         assertPositionIsNotOccupied(position)
 
-        rovers[event.id] = Rover(event.id, position)
+        rovers[event.id] = Mower(event.id, position)
     }
 
     @EventSourcingHandler
@@ -73,7 +73,7 @@ class Plateau {
         rovers[event.id]!!.move(Movement.valueOf(event.to), this)
     }
 
-    fun isPositionFreeExceptFor(p: Position, except: Rover? = null): Boolean {
+    fun isPositionFreeExceptFor(p: Position, except: Mower? = null): Boolean {
         var rovers = rovers.values
 
         if (except != null) {
