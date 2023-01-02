@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.commandhandling.gateway.CommandGateway
+import org.springframework.graphql.data.method.annotation.Argument
+import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -35,5 +37,12 @@ class PostMowerController(val commandGateway: CommandGateway) {
         return commandGateway
             .send<Unit>(DeployRoverCommand(plateauId, id, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction.uppercase()))
             .thenApply { MowerOutputDto(id, plateauId, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction) }
+    }
+
+    @MutationMapping
+    fun deployMower(@Argument plateauId: UUID, x: Int, y: Int, direction: String): MowerOutputDto {
+        val id = UUID.randomUUID()
+        commandGateway.sendAndWait<Unit>(DeployRoverCommand(plateauId, id, x, y, direction[0].uppercase()))
+        return MowerOutputDto(id, plateauId, x, y, direction)
     }
 }

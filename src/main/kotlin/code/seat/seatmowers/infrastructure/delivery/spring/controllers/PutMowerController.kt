@@ -6,6 +6,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.commandhandling.gateway.CommandGateway
+import org.axonframework.extensions.kotlin.send
+import org.springframework.graphql.data.method.annotation.Argument
+import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
@@ -31,4 +34,11 @@ class PutMowerController(val commandGateway: CommandGateway) {
     fun handleRequest(@PathVariable plateauId: UUID, @PathVariable mowerId: UUID, @Valid @RequestBody mowerMovementInputDto: MowerMovementInputDto): Future<Unit> =
         commandGateway
             .send(MoveRoverCommand(plateauId, mowerId, mowerMovementInputDto.movement))
+
+    @MutationMapping
+    fun moveMower(@Argument plateauId: UUID, @Argument id: UUID, @Argument movement: String): Boolean =
+        commandGateway
+            .send<Unit>(MoveRoverCommand(plateauId, id, movement))
+            .thenApply { true }
+            .get()
 }

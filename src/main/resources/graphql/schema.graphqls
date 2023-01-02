@@ -1,0 +1,37 @@
+type Query {
+    plateaus(offset: Int, limit: Int): [Plateau]
+    mowers(plateauId: ID!): [Mower]
+}
+
+type Mutation {
+    createPlateau(x: Int!, y: Int!): Plateau
+    deployMower(plateauId: ID!, x: Int!, y: Int!, direction: Direction!): Mower
+    moveMower(plateauId: ID!, id: ID!, movement: Movement): Boolean
+}
+
+type Plateau {
+    id: ID!
+    x: Int!
+    y: Int!
+}
+
+type Mower {
+    id: ID!
+    plateauId: ID!
+    x: Int!
+    y: Int!
+    direction: Direction!
+}
+
+enum Direction {
+    NORTH,
+    WEST,
+    EAST,
+    SOUTH
+}
+
+enum Movement {
+    M,
+    L,
+    R
+}

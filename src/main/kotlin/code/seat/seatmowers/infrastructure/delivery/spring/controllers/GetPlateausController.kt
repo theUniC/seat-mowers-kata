@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
+import org.springframework.graphql.data.method.annotation.Argument
+import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
@@ -35,4 +37,10 @@ class GetPlateausController(val queryGateway: QueryGateway) {
                 CollectionModel
                     .of(ps, linkTo(methodOn(GetPlateausController::class.java).handleRequest(Optional.empty(), Optional.empty())).withSelfRel())
             }
+
+    @QueryMapping
+    fun plateaus(@Argument offset: Optional<Int>, @Argument limit: Optional<Int>): List<PlateauOutputDto> =
+        queryGateway
+            .query(GetAllPlateausQuery(offset.orElse(0), limit.orElse(10)), ResponseTypes.multipleInstancesOf(PlateauOutputDto::class.java))
+            .get()
 }

@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.commandhandling.gateway.CommandGateway
+import org.springframework.graphql.data.method.annotation.Argument
+import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
+import java.util.concurrent.Future
 import javax.validation.Valid
 
 @RestController
@@ -29,9 +32,17 @@ class PostPlateausController(val commandGateway: CommandGateway) {
         ApiResponse(description = "When provided data is not correct", responseCode = "400")
     )
     @ResponseBody
-    fun handleRequest(@Valid @RequestBody plateauInputDto: PlateauInputDto): PlateauOutputDto {
+    fun handleRequest(@Valid @RequestBody plateauInputDto: PlateauInputDto): Future<PlateauOutputDto> {
         val plateauId = UUID.randomUUID()
-        commandGateway.sendAndWait<Any>(CreatePlateauCommand(plateauId, plateauInputDto.x, plateauInputDto.y))
-        return PlateauOutputDto(plateauId, plateauInputDto.x, plateauInputDto.y)
+        return commandGateway
+            .send<Any>(CreatePlateauCommand(plateauId, plateauInputDto.x, plateauInputDto.y))
+            .thenApply { PlateauOutputDto(plateauId, plateauInputDto.x, plateauInputDto.y) }
+    }
+
+    @MutationMapping
+    fun createPlateau(@Argument x: Int, @Argument y: Int): PlateauOutputDto {
+        val plateauId = UUID.randomUUID()
+        commandGateway.sendAndWait<Any>(CreatePlateauCommand(plateauId, x, y))
+        return PlateauOutputDto(plateauId, x, y)
     }
 }

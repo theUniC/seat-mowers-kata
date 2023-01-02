@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
+import org.springframework.graphql.data.method.annotation.Argument
+import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.mediatype.problem.Problem
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
@@ -44,4 +46,10 @@ class GetPlateauMowersController(val queryGateway: QueryGateway) {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleException(ex: IllegalArgumentException) = ex.message
+
+    @QueryMapping
+    fun mowers(@Argument plateauId: UUID): List<MowerOutputDto> =
+        queryGateway
+            .query(GetAllPlateauMowersQuery(plateauId), ResponseTypes.multipleInstancesOf(MowerOutputDto::class.java))
+            .get()
 }
