@@ -6,9 +6,9 @@ import code.seat.seatmowers.application.command.MoveRoverCommand
 import code.seat.seatmowers.domainmodel.mower.Direction
 import code.seat.seatmowers.domainmodel.mower.MowerWasDeployed
 import code.seat.seatmowers.domainmodel.mower.MowerWasMoved
+import code.seat.seatmowers.domainmodel.mower.PositionIsAlreadyOccupied
 import code.seat.seatmowers.domainmodel.plateau.Coordinates
 import code.seat.seatmowers.domainmodel.plateau.Plateau
-import org.axonframework.messaging.annotation.MessageHandlerInvocationException
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.FixtureConfiguration
 import org.junit.jupiter.api.Assertions
@@ -56,7 +56,7 @@ object MowerSpec : Spek({
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
                     .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
                     .`when`(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
-                    .expectException(MessageHandlerInvocationException::class.java)
+                    .expectException(PositionIsAlreadyOccupied::class.java)
             }
 
             it("Deploys mower successfully") {
@@ -98,7 +98,7 @@ object MowerSpec : Spek({
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
                     .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
                     .`when`(MoveRoverCommand(plateauId, roverId, "M"))
-                    .expectException(MessageHandlerInvocationException::class.java)
+                    .expectException(IllegalStateException::class.java)
             }
 
             it("Throws an exception when rover new position is already occupied") {
@@ -109,7 +109,7 @@ object MowerSpec : Spek({
                     .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
                     .andGivenCommands(DeployRoverCommand(plateauId, secondRoverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
                     .`when`(MoveRoverCommand(plateauId, secondRoverId, "M"))
-                    .expectException(MessageHandlerInvocationException::class.java)
+                    .expectException(PositionIsAlreadyOccupied::class.java)
             }
 
             it("is moved forward successfully") {
@@ -119,7 +119,7 @@ object MowerSpec : Spek({
                     .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
                     .`when`(MoveRoverCommand(plateauId, roverId, "M"))
                     .expectSuccessfulHandlerExecution()
-                    .expectEvents(MowerWasMoved(plateauId, roverId, "M"))
+                    .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "NORTH"))
                     .expectState { p -> Assertions.assertEquals(Coordinates(VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT), p.rovers().first().position().coordinates) }
             }
 
@@ -130,7 +130,7 @@ object MowerSpec : Spek({
                     .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
                     .`when`(MoveRoverCommand(plateauId, roverId, "L"))
                     .expectSuccessfulHandlerExecution()
-                    .expectEvents(MowerWasMoved(plateauId, roverId, "L"))
+                    .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "WEST"))
                     .expectState { p -> Assertions.assertEquals(Direction.NORTH.left(), p.rovers().first().position().direction) }
             }
 
@@ -141,7 +141,7 @@ object MowerSpec : Spek({
                     .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
                     .`when`(MoveRoverCommand(plateauId, roverId, "R"))
                     .expectSuccessfulHandlerExecution()
-                    .expectEvents(MowerWasMoved(plateauId, roverId, "R"))
+                    .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "EAST"))
                     .expectState { p -> Assertions.assertEquals(Direction.NORTH.right(), p.rovers().first().position().direction) }
             }
         }

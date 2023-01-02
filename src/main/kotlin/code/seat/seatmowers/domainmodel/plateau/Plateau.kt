@@ -27,7 +27,7 @@ class Plateau {
     private lateinit var coordinates: Coordinates
 
     @AggregateMember(eventForwardingMode = ForwardMatchingInstances::class)
-    private lateinit var rovers: MutableMap<UUID, Mower>
+    private lateinit var mowers: MutableMap<UUID, Mower>
 
     @CommandHandler
     constructor(command: CreatePlateauCommand) {
@@ -36,12 +36,13 @@ class Plateau {
     }
 
     fun coordinates() = coordinates
-    fun rovers() = rovers.values.toList()
+    fun rovers() = mowers.values.toList()
 
     @CommandHandler
     fun deployRover(command: DeployRoverCommand) {
         assertCoordinatesAreWithinPlateauBounds(command.x, command.y)
         assertDirectionIsValid(command.direction)
+        assertPositionIsNotOccupied(Position(Coordinates(command.x, command.y), Direction.fromLiteral(command.direction)))
 
         apply(MowerWasDeployed(command.id, UUID.fromString(this.id), command.x, command.y, command.direction))
     }
@@ -50,14 +51,22 @@ class Plateau {
     fun moveRover(command: MoveRoverCommand) {
         assertMovementIsValid(command.to)
         assertRoverExists(command.roverId)
-        apply(MowerWasMoved(command.plateauId, command.roverId, command.to))
+
+        val mower = mowers[command.roverId]
+        val movement = Movement.valueOf(command.to)
+        val newPosition = mower!!.newPositionFor(movement)
+
+        assertPositionIsNotOutOfBounds(newPosition)
+        assertPositionIsNotAlreadyOccupied(newPosition, mower)
+
+        apply(MowerWasMoved(command.plateauId, command.roverId, newPosition.coordinates.x, newPosition.coordinates.y, newPosition.direction.toString()))
     }
 
     @EventSourcingHandler
     fun on(event: NewPlateauWasCreated) {
         id = event.newPlateauId.toString()
         coordinates = Coordinates(event.x, event.y)
-        rovers = mutableMapOf()
+        mowers = mutableMapOf()
     }
 
     @EventSourcingHandler
@@ -67,18 +76,21 @@ class Plateau {
             Direction.fromLiteral(event.direction)
         )
 
-        assertPositionIsNotOccupied(position)
-
-        rovers[event.id] = Mower(event.id, position)
+        mowers[event.id] = Mower(event.id, position)
     }
 
     @EventSourcingHandler
     fun on(event: MowerWasMoved) {
-        rovers[event.id]!!.move(Movement.valueOf(event.to), this)
+        mowers[event.id]!!.moveTo(
+            Position(
+                Coordinates(event.newX, event.newY),
+                Direction.valueOf(event.newDirection)
+            )
+        )
     }
 
     fun isPositionFreeExceptFor(p: Position, except: Mower? = null): Boolean {
-        var rovers = rovers.values
+        var rovers = mowers.values
 
         if (except != null) {
             rovers = rovers.filterNot { r -> r.id() == except.id() }.toMutableList()
@@ -103,10 +115,21 @@ class Plateau {
     }
 
     private fun assertRoverExists(roverId: UUID) {
-        Assert.notNull(rovers[roverId], "Rover with ID of $roverId does not exists in this plateau")
+        Assert.notNull(mowers[roverId], "Rover with ID of $roverId does not exists in this plateau")
     }
 
     private fun assertMovementIsValid(to: String) {
         Assert.state(to.lowercase().contains("[mlr]".toRegex()), "Movement $to is not valid")
+    }
+
+    private fun assertPositionIsNotAlreadyOccupied(newPosition: Position, exceptMower: Mower) {
+        if (!isPositionFreeExceptFor(newPosition, exceptMower)) {
+            throw PositionIsAlreadyOccupied(newPosition)
+        }
+    }
+
+    private fun assertPositionIsNotOutOfBounds(newPosition: Position) {
+        Assert.state(newPosition.coordinates.x <= coordinates.x, "New mower X position is out of plateau bounds")
+        Assert.state(newPosition.coordinates.y <= coordinates.y, "New mower Y position is out of plateau bounds")
     }
 }

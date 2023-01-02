@@ -18,9 +18,9 @@ class MowerOutputDto {
     @Type(type = "uuid-char")
     @Column(columnDefinition = "CHAR(36)")
     private var plateauId: UUID
-    private var x: Int
-    private var y: Int
-    private var direction: String
+    var x: Int
+    var y: Int
+    var direction: String
 
     constructor(id: UUID, plateauId: UUID, x: Int, y: Int, direction: String) {
         this.id = id
@@ -32,7 +32,4 @@ class MowerOutputDto {
 
     fun getId() = id
     fun getPlateauId() = plateauId
-    fun getX() = x
-    fun getY() = y
-    fun getDirection() = direction
 }
