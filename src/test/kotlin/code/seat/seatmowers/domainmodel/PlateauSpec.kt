@@ -9,7 +9,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.util.UUID
 
-private const val INVALID_COORDINATE_COMPONENT = 0
+private const val INVALID_COORDINATE_COMPONENT = -1
 private const val VALID_COORDINATE_COMPONENT = 15
 
 object PlateauSpec : Spek({

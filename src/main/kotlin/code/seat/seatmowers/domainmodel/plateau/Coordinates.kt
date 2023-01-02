@@ -10,7 +10,7 @@ data class Coordinates(val x: Int, val y: Int) {
     }
 
     private fun assertCoordinatesAreValid(x: Int, y: Int) {
-        Assert.state(x > 0, "Plateau X upper coordinate cannot be 0 or lower")
-        Assert.state(y > 0, "Plateau Y upper coordinate cannot be 0 or lower")
+        Assert.state(x >= 0, "X upper coordinate component cannot be lower than 0")
+        Assert.state(y >= 0, "Y upper coordinate component cannot be lower than 0")
     }
 }

@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 import java.util.concurrent.Future
+import javax.validation.Valid
 
 @RestController
 class PutMowerController(val commandGateway: CommandGateway) {
     @PutMapping("/plateaus/{plateauId}/mowers/{mowerId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    fun handleRequest(@PathVariable plateauId: UUID, @PathVariable mowerId: UUID, @RequestBody mowerMovementInputDto: MowerMovementInputDto): Future<Unit> =
+    fun handleRequest(@PathVariable plateauId: UUID, @PathVariable mowerId: UUID, @Valid @RequestBody mowerMovementInputDto: MowerMovementInputDto): Future<Unit> =
         commandGateway
             .send(MoveRoverCommand(plateauId, mowerId, mowerMovementInputDto.movement))
 }

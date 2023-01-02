@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 import java.util.concurrent.Future
+import javax.validation.Valid
 
 @RestController
 class PostMowerController(val commandGateway: CommandGateway) {
     @PostMapping("/plateaus/{plateauId}/mowers")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    fun handleRequest(@PathVariable plateauId: UUID, @RequestBody mowerInputDto: MowerInputDto): Future<MowerOutputDto> {
+    fun handleRequest(@PathVariable plateauId: UUID, @Valid @RequestBody mowerInputDto: MowerInputDto): Future<MowerOutputDto> {
         val id = UUID.randomUUID()
         return commandGateway
-            .send<Unit>(DeployRoverCommand(plateauId, id, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction))
+            .send<Unit>(DeployRoverCommand(plateauId, id, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction.uppercase()))
             .thenApply { MowerOutputDto(id, plateauId, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction) }
     }
 }

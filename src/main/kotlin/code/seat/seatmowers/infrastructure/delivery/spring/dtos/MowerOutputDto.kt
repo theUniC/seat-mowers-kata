@@ -27,7 +27,7 @@ class MowerOutputDto {
         this.plateauId = plateauId
         this.x = x
         this.y = y
-        this.direction = direction
+        this.direction = direction[0].uppercase()
     }
 
     fun getId() = id
