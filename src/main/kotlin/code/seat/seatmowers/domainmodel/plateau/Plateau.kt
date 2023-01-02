@@ -43,7 +43,7 @@ class Plateau {
         assertCoordinatesAreWithinPlateauBounds(command.x, command.y)
         assertDirectionIsValid(command.direction)
 
-        apply(MowerWasDeployed(command.id, command.x, command.y, command.direction))
+        apply(MowerWasDeployed(command.id, UUID.fromString(this.id), command.x, command.y, command.direction))
     }
 
     @CommandHandler
@@ -62,7 +62,11 @@ class Plateau {
 
     @EventSourcingHandler
     fun on(event: MowerWasDeployed) {
-        val position = Position(Coordinates(event.x, event.y), Direction.fromLiteral(event.direction))
+        val position = Position(
+            Coordinates(event.x, event.y),
+            Direction.fromLiteral(event.direction)
+        )
+
         assertPositionIsNotOccupied(position)
 
         rovers[event.id] = Mower(event.id, position)

@@ -66,7 +66,7 @@ object MowerSpec : Spek({
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
                     .`when`(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
                     .expectSuccessfulHandlerExecution()
-                    .expectEvents(MowerWasDeployed(roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .expectEvents(MowerWasDeployed(roverId, plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
             }
         }
 

@@ -1,0 +1,8 @@
+CREATE TABLE mowers (
+    id BINARY(255) NOT NULL,
+    plateauId BINARY(255)  NOT NULL,
+    x INT NOT NULL,
+    y INT NOT NULL,
+    direction VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_mowers PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
