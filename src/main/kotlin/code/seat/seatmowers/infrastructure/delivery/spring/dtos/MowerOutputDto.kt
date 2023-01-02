@@ -1,6 +1,8 @@
 package code.seat.seatmowers.infrastructure.delivery.spring.dtos
 
 import org.hibernate.annotations.Type
+import org.springframework.hateoas.RepresentationModel
+import org.springframework.hateoas.server.core.Relation
 import java.util.UUID
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -9,7 +11,8 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "mowers")
-class MowerOutputDto {
+@Relation(collectionRelation = "mowers", itemRelation = "mower")
+class MowerOutputDto : RepresentationModel<MowerOutputDto> {
     @Id
     @Type(type = "uuid-char")
     @Column(columnDefinition = "CHAR(36)")

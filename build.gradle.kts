@@ -66,6 +66,7 @@ dependencies {
     implementation("me.paulschwarz:spring-dotenv:$springDotEnvVersion")
     implementation("org.springdoc:springdoc-openapi-ui:$springDocOpenApiVersion")
     implementation("org.springdoc:springdoc-openapi-webmvc-core:$springDocOpenApiVersion")
+    implementation("org.springdoc:springdoc-openapi-hateoas:$springDocOpenApiVersion")
     runtimeOnly("com.mysql:mysql-connector-j:$mysqlConnectorJavaVersion")
     compileOnly("org.projectlombok:lombok:$lombokPluginVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokPluginVersion")

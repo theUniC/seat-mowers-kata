@@ -10,6 +10,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
+import org.springframework.hateoas.CollectionModel
+import org.springframework.hateoas.mediatype.problem.Problem
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,13 +29,17 @@ import java.util.concurrent.Future
 class GetPlateauMowersController(val queryGateway: QueryGateway) {
     @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/json"])
     @ApiResponses(
-        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
-        ApiResponse(description = "When the given plateau does not exist", responseCode = "404")
+        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/hal+json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
+        ApiResponse(description = "When the given plateau does not exist", responseCode = "404", content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))])
     )
     @ResponseBody
-    fun handleRequest(@PathVariable plateauId: UUID): Future<List<MowerOutputDto>> =
+    fun handleRequest(@PathVariable plateauId: UUID): Future<CollectionModel<MowerOutputDto>> =
         queryGateway
             .query(GetAllPlateauMowersQuery(plateauId), ResponseTypes.multipleInstancesOf(MowerOutputDto::class.java))
+            .thenApply { ms ->
+                CollectionModel
+                    .of(ms, linkTo(methodOn(GetPlateauMowersController::class.java).handleRequest(plateauId)).withSelfRel())
+            }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(IllegalArgumentException::class)
