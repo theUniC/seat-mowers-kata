@@ -10,9 +10,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 import java.util.concurrent.Future
@@ -22,10 +25,15 @@ import java.util.concurrent.Future
 class GetPlateauMowersController(val queryGateway: QueryGateway) {
     @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/json"])
     @ApiResponses(
-        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))])
+        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
+        ApiResponse(description = "When the given plateau does not exist", responseCode = "404")
     )
     @ResponseBody
     fun handleRequest(@PathVariable plateauId: UUID): Future<List<MowerOutputDto>> =
         queryGateway
             .query(GetAllPlateauMowersQuery(plateauId), ResponseTypes.multipleInstancesOf(MowerOutputDto::class.java))
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleException(ex: IllegalArgumentException) = ex.message
 }

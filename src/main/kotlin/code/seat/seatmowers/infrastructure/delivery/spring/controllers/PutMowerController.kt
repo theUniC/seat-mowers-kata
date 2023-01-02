@@ -4,6 +4,7 @@ import code.seat.seatmowers.application.command.MoveRoverCommand
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerMovementInputDto
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,6 +18,7 @@ import java.util.concurrent.Future
 import javax.validation.Valid
 
 @RestController
+@Tag(name = "Mower")
 class PutMowerController(val commandGateway: CommandGateway) {
     @PutMapping("/plateaus/{plateauId}/mowers/{mowerId}")
     @ApiResponses(
