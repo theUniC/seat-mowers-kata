@@ -2,6 +2,8 @@ package code.seat.seatmowers.infrastructure.delivery.spring.controllers
 
 import code.seat.seatmowers.application.command.MoveRoverCommand
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerMovementInputDto
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,6 +19,11 @@ import javax.validation.Valid
 @RestController
 class PutMowerController(val commandGateway: CommandGateway) {
     @PutMapping("/plateaus/{plateauId}/mowers/{mowerId}")
+    @ApiResponses(
+        ApiResponse(description = "When the move has been done correctly", responseCode = "200"),
+        ApiResponse(description = "When the given plateau does not exist", responseCode = "404"),
+        ApiResponse(description = "When provided data is not correct", responseCode = "400")
+    )
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     fun handleRequest(@PathVariable plateauId: UUID, @PathVariable mowerId: UUID, @Valid @RequestBody mowerMovementInputDto: MowerMovementInputDto): Future<Unit> =

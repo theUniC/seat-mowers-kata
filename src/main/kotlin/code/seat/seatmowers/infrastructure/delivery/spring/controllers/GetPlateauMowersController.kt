@@ -2,6 +2,12 @@ package code.seat.seatmowers.infrastructure.delivery.spring.controllers
 
 import code.seat.seatmowers.application.query.getallplateaumowers.GetAllPlateauMowersQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,8 +18,12 @@ import java.util.UUID
 import java.util.concurrent.Future
 
 @RestController
+@Tag(name = "Mower")
 class GetPlateauMowersController(val queryGateway: QueryGateway) {
-    @GetMapping("/plateaus/{plateauId}/mowers")
+    @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/json"])
+    @ApiResponses(
+        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))])
+    )
     @ResponseBody
     fun handleRequest(@PathVariable plateauId: UUID): Future<List<MowerOutputDto>> =
         queryGateway
