@@ -29,7 +29,7 @@ import java.util.concurrent.Future
 @RestController
 @Tag(name = "Mower")
 class GetPlateauMowersController(val queryGateway: QueryGateway) {
-    @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/json"])
+    @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/hal+json"])
     @ApiResponses(
         ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/hal+json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
         ApiResponse(description = "When the given plateau does not exist", responseCode = "404", content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))])
