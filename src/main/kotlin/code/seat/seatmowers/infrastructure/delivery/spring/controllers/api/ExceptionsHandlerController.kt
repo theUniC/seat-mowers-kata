@@ -1,4 +1,4 @@
-package code.seat.seatmowers.infrastructure.delivery.spring.controllers
+package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 
 import org.axonframework.modelling.command.AggregateNotFoundException
 import org.springframework.hateoas.mediatype.problem.Problem

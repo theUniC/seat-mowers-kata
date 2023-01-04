@@ -1,4 +1,4 @@
-package code.seat.seatmowers.infrastructure.delivery.spring.controllers
+package code.seat.seatmowers.infrastructure.delivery.spring.controllers.webmvc
 
 import code.seat.seatmowers.application.query.getallplateaumowers.GetAllPlateauMowersQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto

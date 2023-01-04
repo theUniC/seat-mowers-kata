@@ -1,4 +1,4 @@
-package code.seat.seatmowers.infrastructure.delivery.spring.controllers
+package code.seat.seatmowers.infrastructure.delivery.spring.controllers.webmvc
 
 import code.seat.seatmowers.application.command.CreatePlateauCommand
 import code.seat.seatmowers.application.command.DeployMowerCommand

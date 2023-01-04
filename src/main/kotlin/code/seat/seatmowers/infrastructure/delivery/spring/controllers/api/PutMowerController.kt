@@ -1,4 +1,4 @@
-package code.seat.seatmowers.infrastructure.delivery.spring.controllers
+package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 
 import code.seat.seatmowers.application.command.MoveMowerCommand
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerMovementInputDto

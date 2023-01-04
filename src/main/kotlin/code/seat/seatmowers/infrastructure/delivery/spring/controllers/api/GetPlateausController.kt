@@ -1,4 +1,4 @@
-package code.seat.seatmowers.infrastructure.delivery.spring.controllers
+package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 
 import code.seat.seatmowers.application.query.getallplateaus.GetAllPlateausQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauOutputDto
