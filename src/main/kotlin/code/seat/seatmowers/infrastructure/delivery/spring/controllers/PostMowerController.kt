@@ -1,6 +1,6 @@
 package code.seat.seatmowers.infrastructure.delivery.spring.controllers
 
-import code.seat.seatmowers.application.command.DeployRoverCommand
+import code.seat.seatmowers.application.command.DeployMowerCommand
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerInputDto
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto
 import io.swagger.v3.oas.annotations.media.Content
@@ -37,14 +37,14 @@ class PostMowerController(val commandGateway: CommandGateway) {
     fun handleRequest(@PathVariable plateauId: UUID, @Valid @RequestBody mowerInputDto: MowerInputDto): Future<MowerOutputDto> {
         val id = UUID.randomUUID()
         return commandGateway
-            .send<Unit>(DeployRoverCommand(plateauId, id, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction.uppercase()))
+            .send<Unit>(DeployMowerCommand(plateauId, id, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction.uppercase()))
             .thenApply { MowerOutputDto(id, plateauId, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction) }
     }
 
     @MutationMapping
     fun deployMower(@Argument plateauId: UUID, x: Int, y: Int, direction: String): MowerOutputDto {
         val id = UUID.randomUUID()
-        commandGateway.sendAndWait<Unit>(DeployRoverCommand(plateauId, id, x, y, direction[0].uppercase()))
+        commandGateway.sendAndWait<Unit>(DeployMowerCommand(plateauId, id, x, y, direction[0].uppercase()))
         return MowerOutputDto(id, plateauId, x, y, direction)
     }
 }

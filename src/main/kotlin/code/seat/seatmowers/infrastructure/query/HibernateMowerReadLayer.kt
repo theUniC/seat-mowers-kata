@@ -3,6 +3,7 @@ package code.seat.seatmowers.infrastructure.query
 import code.seat.seatmowers.application.query.readlayer.MowerReadLayer
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto
 import org.springframework.stereotype.Component
+import java.util.Optional
 import java.util.UUID
 import javax.persistence.EntityManager
 
@@ -13,4 +14,11 @@ class HibernateMowerReadLayer(private val entityManager: EntityManager) : MowerR
             .createQuery("SELECT m FROM MowerOutputDto m WHERE m.plateauId = :plateauId", MowerOutputDto::class.java)
             .setParameter("plateauId", plateauId)
             .resultList
+
+    override fun byId(mowerId: UUID): Optional<MowerOutputDto> =
+        Optional
+            .ofNullable(
+                entityManager
+                    .find(MowerOutputDto::class.java, mowerId)
+            )
 }

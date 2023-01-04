@@ -1,6 +1,6 @@
 package code.seat.seatmowers.infrastructure.delivery.spring.controllers
 
-import code.seat.seatmowers.application.command.MoveRoverCommand
+import code.seat.seatmowers.application.command.MoveMowerCommand
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerMovementInputDto
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.axonframework.commandhandling.gateway.CommandGateway
-import org.axonframework.extensions.kotlin.send
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.hateoas.mediatype.problem.Problem
@@ -36,12 +35,12 @@ class PutMowerController(val commandGateway: CommandGateway) {
     @ResponseBody
     fun handleRequest(@PathVariable plateauId: UUID, @PathVariable mowerId: UUID, @Valid @RequestBody mowerMovementInputDto: MowerMovementInputDto): Future<Unit> =
         commandGateway
-            .send(MoveRoverCommand(plateauId, mowerId, mowerMovementInputDto.movement))
+            .send(MoveMowerCommand(plateauId, mowerId, mowerMovementInputDto.movement))
 
     @MutationMapping
     fun moveMower(@Argument plateauId: UUID, @Argument id: UUID, @Argument movement: String): Boolean =
         commandGateway
-            .send<Unit>(MoveRoverCommand(plateauId, id, movement))
+            .send<Unit>(MoveMowerCommand(plateauId, id, movement))
             .thenApply { true }
             .get()
 }

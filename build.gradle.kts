@@ -41,10 +41,7 @@ val springDocOpenApiVersion = "1.6.13"
 val springBootVersion = "2.7.7"
 val mysqlConnectorJavaVersion = "8.0.31"
 val flywayVersion = "9.10.1"
-val springShellVersion = "2.1.4"
 val lombokPluginVersion = "1.18.24"
-
-ext["springShellVersion"] = springShellVersion
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
@@ -52,7 +49,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-hateoas:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-validation:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    implementation("org.springframework.shell:spring-shell-starter:$springShellVersion")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springdoc:springdoc-openapi-ui:$springDocOpenApiVersion")
     implementation("org.springdoc:springdoc-openapi-webmvc-core:$springDocOpenApiVersion")
@@ -86,7 +83,6 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.shell:spring-shell-dependencies:${property("springShellVersion")}")
         mavenBom("org.axonframework:axon-bom:$axonVersion")
     }
 }
@@ -104,7 +100,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform() {
+    useJUnitPlatform {
         includeEngines = mutableSetOf("spek2")
     }
 }

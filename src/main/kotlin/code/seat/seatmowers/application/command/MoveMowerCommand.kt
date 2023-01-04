@@ -3,10 +3,8 @@ package code.seat.seatmowers.application.command
 import org.axonframework.modelling.command.TargetAggregateIdentifier
 import java.util.UUID
 
-data class DeployRoverCommand(
+data class MoveMowerCommand(
     @TargetAggregateIdentifier val plateauId: UUID,
-    val id: UUID,
-    val x: Int,
-    val y: Int,
-    val direction: String
+    val mowerId: UUID,
+    val to: String
 )

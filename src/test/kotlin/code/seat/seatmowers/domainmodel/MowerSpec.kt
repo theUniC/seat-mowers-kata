@@ -1,8 +1,8 @@
 package code.seat.seatmowers.domainmodel
 
 import code.seat.seatmowers.application.command.CreatePlateauCommand
-import code.seat.seatmowers.application.command.DeployRoverCommand
-import code.seat.seatmowers.application.command.MoveRoverCommand
+import code.seat.seatmowers.application.command.DeployMowerCommand
+import code.seat.seatmowers.application.command.MoveMowerCommand
 import code.seat.seatmowers.domainmodel.mower.Direction
 import code.seat.seatmowers.domainmodel.mower.MowerWasDeployed
 import code.seat.seatmowers.domainmodel.mower.MowerWasMoved
@@ -29,7 +29,7 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .`when`(DeployRoverCommand(plateauId, UUID.randomUUID(), VALID_COORDINATE_COMPONENT + 1, VALID_COORDINATE_COMPONENT + 1, "N"))
+                    .`when`(DeployMowerCommand(plateauId, UUID.randomUUID(), VALID_COORDINATE_COMPONENT + 1, VALID_COORDINATE_COMPONENT + 1, "N"))
                     .expectException(IllegalStateException::class.java)
             }
 
@@ -37,7 +37,7 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .`when`(DeployRoverCommand(plateauId, UUID.randomUUID(), VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT + 1, "N"))
+                    .`when`(DeployMowerCommand(plateauId, UUID.randomUUID(), VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT + 1, "N"))
                     .expectException(IllegalStateException::class.java)
             }
 
@@ -45,7 +45,7 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .`when`(DeployRoverCommand(plateauId, UUID.randomUUID(), VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT + 1, "A"))
+                    .`when`(DeployMowerCommand(plateauId, UUID.randomUUID(), VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT + 1, "A"))
                     .expectException(IllegalStateException::class.java)
             }
 
@@ -54,8 +54,8 @@ object MowerSpec : Spek({
                 val roverId = UUID.randomUUID()
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
-                    .`when`(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .`when`(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
                     .expectException(PositionIsAlreadyOccupied::class.java)
             }
 
@@ -64,7 +64,7 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .`when`(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .`when`(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasDeployed(roverId, plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
             }
@@ -78,8 +78,8 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
-                    .`when`(MoveRoverCommand(plateauId, roverId, "A"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .`when`(MoveMowerCommand(plateauId, roverId, "A"))
                     .expectException(IllegalStateException::class.java)
             }
 
@@ -87,8 +87,8 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
-                    .`when`(MoveRoverCommand(plateauId, UUID.randomUUID(), "M"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .`when`(MoveMowerCommand(plateauId, UUID.randomUUID(), "M"))
                     .expectException(IllegalArgumentException::class.java)
             }
 
@@ -96,8 +96,8 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
-                    .`when`(MoveRoverCommand(plateauId, roverId, "M"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .`when`(MoveMowerCommand(plateauId, roverId, "M"))
                     .expectException(IllegalStateException::class.java)
             }
 
@@ -106,9 +106,9 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
-                    .andGivenCommands(DeployRoverCommand(plateauId, secondRoverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
-                    .`when`(MoveRoverCommand(plateauId, secondRoverId, "M"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "N"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, secondRoverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
+                    .`when`(MoveMowerCommand(plateauId, secondRoverId, "M"))
                     .expectException(PositionIsAlreadyOccupied::class.java)
             }
 
@@ -116,8 +116,8 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
-                    .`when`(MoveRoverCommand(plateauId, roverId, "M"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
+                    .`when`(MoveMowerCommand(plateauId, roverId, "M"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "NORTH"))
                     .expectState { p -> Assertions.assertEquals(Coordinates(VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT), p.rovers().first().position().coordinates) }
@@ -127,8 +127,8 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
-                    .`when`(MoveRoverCommand(plateauId, roverId, "L"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
+                    .`when`(MoveMowerCommand(plateauId, roverId, "L"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "WEST"))
                     .expectState { p -> Assertions.assertEquals(Direction.NORTH.left(), p.rovers().first().position().direction) }
@@ -138,8 +138,8 @@ object MowerSpec : Spek({
                 fixture.setReportIllegalStateChange(false)
                 fixture
                     .givenCommands(CreatePlateauCommand(plateauId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT))
-                    .andGivenCommands(DeployRoverCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
-                    .`when`(MoveRoverCommand(plateauId, roverId, "R"))
+                    .andGivenCommands(DeployMowerCommand(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "N"))
+                    .`when`(MoveMowerCommand(plateauId, roverId, "R"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "EAST"))
                     .expectState { p -> Assertions.assertEquals(Direction.NORTH.right(), p.rovers().first().position().direction) }

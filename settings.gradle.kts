@@ -5,4 +5,5 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 rootProject.name = "seat-mowers"

@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="py-5">
+<div class="container mx-auto px-16">
+    <form method="post" th:action="@{/instructions}" enctype="multipart/form-data">
+        <label for="instructions" class="block text-sm font-medium text-gray-700">Write instructions down here 👇</label>
+        <div class="mt-1">
+            <textarea rows="4" name="instructions" id="instructions" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 sm:text-sm"></textarea>
+        </div>
+        <div class="py-2 text-right">
+            <button type="submit" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Run instructions</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

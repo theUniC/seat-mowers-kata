@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="py-5">
+<div class="container mx-auto px-16">
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <h1 class="text-xl font-semibold text-gray-900">Mowers</h1>
+                <p class="mt-2 text-sm text-gray-700">Results of running instruction.</p>
+            </div>
+        </div>
+        <div class="mt-8 flex flex-col">
+            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-300">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Mower ID</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">X</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Y</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Direction</th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr th:each="mower : ${mowers}">
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6" th:text="${mower.getId()}">176b9e9e-e398-4ccc-a8db-d36f1e5d1db6</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" th:text="${mower.x}">15</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" th:text="${mower.y}">15</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" th:text="${mower.direction}">N</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

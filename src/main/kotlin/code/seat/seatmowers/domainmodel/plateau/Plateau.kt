@@ -1,8 +1,8 @@
 package code.seat.seatmowers.domainmodel.plateau
 
 import code.seat.seatmowers.application.command.CreatePlateauCommand
-import code.seat.seatmowers.application.command.DeployRoverCommand
-import code.seat.seatmowers.application.command.MoveRoverCommand
+import code.seat.seatmowers.application.command.DeployMowerCommand
+import code.seat.seatmowers.application.command.MoveMowerCommand
 import code.seat.seatmowers.domainmodel.mower.Direction
 import code.seat.seatmowers.domainmodel.mower.Movement
 import code.seat.seatmowers.domainmodel.mower.Mower
@@ -39,7 +39,7 @@ class Plateau {
     fun rovers() = mowers.values.toList()
 
     @CommandHandler
-    fun deployRover(command: DeployRoverCommand) {
+    fun deployRover(command: DeployMowerCommand) {
         assertCoordinatesAreWithinPlateauBounds(command.x, command.y)
         assertDirectionIsValid(command.direction)
         assertPositionIsNotOccupied(Position(Coordinates(command.x, command.y), Direction.fromLiteral(command.direction)))
@@ -48,18 +48,18 @@ class Plateau {
     }
 
     @CommandHandler
-    fun moveRover(command: MoveRoverCommand) {
+    fun moveRover(command: MoveMowerCommand) {
         assertMovementIsValid(command.to)
-        assertRoverExists(command.roverId)
+        assertRoverExists(command.mowerId)
 
-        val mower = mowers[command.roverId]
+        val mower = mowers[command.mowerId]
         val movement = Movement.valueOf(command.to)
         val newPosition = mower!!.newPositionFor(movement)
 
         assertPositionIsNotOutOfBounds(newPosition)
         assertPositionIsNotAlreadyOccupied(newPosition, mower)
 
-        apply(MowerWasMoved(command.plateauId, command.roverId, newPosition.coordinates.x, newPosition.coordinates.y, newPosition.direction.toString()))
+        apply(MowerWasMoved(command.plateauId, command.mowerId, newPosition.coordinates.x, newPosition.coordinates.y, newPosition.direction.toString()))
     }
 
     @EventSourcingHandler
