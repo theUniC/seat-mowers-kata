@@ -6,7 +6,9 @@ import code.seat.seatmowers.application.command.MoveMowerCommand
 import code.seat.seatmowers.application.query.getmower.GetMowerQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauOutputDto
+import code.seat.seatmowers.infrastructure.delivery.spring.entities.Execution
 import code.seat.seatmowers.infrastructure.delivery.spring.exceptions.ParseException
+import code.seat.seatmowers.infrastructure.delivery.spring.repositories.ExecutionRepository
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
 
 @Controller
-class PostInstructionsFormController(val commandGateway: CommandGateway, val queryGateway: QueryGateway) {
+class PostInstructionsFormController(val commandGateway: CommandGateway, val queryGateway: QueryGateway, val executionRepository: ExecutionRepository) {
     private enum class Direction {
         N, W, E, S
     }
@@ -25,7 +27,8 @@ class PostInstructionsFormController(val commandGateway: CommandGateway, val que
     @PostMapping("/instructions")
     fun handleRequest(model: Model, @RequestParam("instructions") instructions: String): String {
         val ls = instructions.lines()
-        val plateau = createPlateauFrom(ls.first().trim())
+        val plateauId = UUID.randomUUID()
+        val plateau = createPlateauFrom(ls.first().trim(), plateauId)
         val mowers = ls.drop(1).chunked(2).map { p ->
             val (mowerSpec, movements) = p
             val mower = deployMowerFromSpec(plateau.getId(), mowerSpec.trim())
@@ -33,28 +36,32 @@ class PostInstructionsFormController(val commandGateway: CommandGateway, val que
             mower
         }
 
-        Thread.sleep(10_000) // Wait 10 secs for query side to be consistent with write side
+        val execution = Execution(plateauId, instructions)
+        executionRepository.save(execution)
 
-        model.addAttribute(
-            "mowers",
-            mowers.map { m ->
-                queryGateway
-                    .query(GetMowerQuery(m.getId()), ResponseTypes.optionalInstanceOf(MowerOutputDto::class.java))
-                    .thenApply { o -> o.get() }
-                    .get()
-            }
+        Thread.sleep(5_000) // Wait 5 secs for query side to be consistent with write side
+
+        model.addAllAttributes(
+            mapOf(
+                "execution" to execution,
+                "mowers" to mowers.map { m ->
+                    queryGateway
+                        .query(GetMowerQuery(m.getId()), ResponseTypes.optionalInstanceOf(MowerOutputDto::class.java))
+                        .thenApply { o -> o.get() }
+                        .get()
+                }
+            )
         )
 
-        return "results.html"
+        return "results"
     }
 
-    private fun createPlateauFrom(spec: String): PlateauOutputDto {
+    private fun createPlateauFrom(spec: String, plateauId: UUID): PlateauOutputDto {
         assertPlateauSpecIsValid(spec)
         val (x, y) = parsePlateuCoordinatesFromSpec(spec)
-        val id = UUID.randomUUID()
-        commandGateway.sendAndWait<Any>(CreatePlateauCommand(id, x, y))
+        commandGateway.sendAndWait<Any>(CreatePlateauCommand(plateauId, x, y))
 
-        return PlateauOutputDto(id, x, y)
+        return PlateauOutputDto(plateauId, x, y)
     }
 
     private fun assertPlateauSpecIsValid(spec: String) {

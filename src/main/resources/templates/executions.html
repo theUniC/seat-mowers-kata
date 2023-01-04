@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="py-5 font-sans">
+<div class="container mx-auto px-16">
+    <h1 class="font-black text-3xl">List of executions</h1>
+    <ul class="list-disc">
+        <li th:each="e : ${executions}">
+            Execution <a class="no-underline hover:underline text-blue-600/100" th:href="@{/execution/{id}(id=${e.id})}">
+                <span th:text="${e.id} + ' – ' + ${#temporals.format(e.createdAt, 'dd/MM/yyyy HH:mm:ss')}">176b9e9e-e398-4ccc-a8db-d36f1e5d1db6</span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

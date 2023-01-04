@@ -10,8 +10,21 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-                <h1 class="text-xl font-semibold text-gray-900">Mowers</h1>
-                <p class="mt-2 text-sm text-gray-700">Results of running instruction.</p>
+                <h1 class="text-xl font-semibold text-gray-900">Mowers positions</h1>
+                <p class="mt-2 text-sm text-gray-700">Results of running instruction. You can later see again this execution using this link 👉 <a class="no-underline hover:underline text-blue-600/100" th:href="@{/execution/{id}(id=${execution.id})}"><span th:text="${execution.id}">176b9e9e-e398-4ccc-a8db-d36f1e5d1db6</span></a></p>
+            </div>
+        </div>
+        <div class="mt-8 flex flex-col">
+            <div class="overflow-hidden rounded-lg bg-gray-50">
+                <div class="px-4 py-5 sm:p-6">
+                    <pre th:utext="${execution.instructions.replaceAll('(\r\n|\n)', '<br>')}">
+                        5 5<br>
+                        1 2 N<br>
+                        LMLMLMLMM<br>
+                        3 3 E<br>
+                        MMRMMRMRRM<br>
+                    </pre>
+                </div>
             </div>
         </div>
         <div class="mt-8 flex flex-col">
@@ -29,7 +42,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                             <tr th:each="mower : ${mowers}">
-                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6" th:text="${mower.getId()}">176b9e9e-e398-4ccc-a8db-d36f1e5d1db6</td>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6" th:text="${mower.id}">176b9e9e-e398-4ccc-a8db-d36f1e5d1db6</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" th:text="${mower.x}">15</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" th:text="${mower.y}">15</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" th:text="${mower.direction}">N</td>
