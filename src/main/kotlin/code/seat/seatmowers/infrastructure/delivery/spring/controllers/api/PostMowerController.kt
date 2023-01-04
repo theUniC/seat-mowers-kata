@@ -12,11 +12,12 @@ import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.hateoas.mediatype.problem.Problem
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
@@ -24,7 +25,7 @@ import java.util.concurrent.Future
 import javax.validation.Valid
 
 @RestController
-@Tag(name = "Mower")
+@Tag(name = "Plateau")
 class PostMowerController(val commandGateway: CommandGateway) {
     @PostMapping("/plateaus/{plateauId}/mowers", consumes = ["application/json"])
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,12 +34,17 @@ class PostMowerController(val commandGateway: CommandGateway) {
         ApiResponse(description = "When the given plateau does not exist", responseCode = "404"),
         ApiResponse(description = "When provided data is not valid", responseCode = "400", content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))])
     )
-    @ResponseBody
     fun handleRequest(@PathVariable plateauId: UUID, @Valid @RequestBody mowerInputDto: MowerInputDto): Future<MowerOutputDto> {
         val id = UUID.randomUUID()
         return commandGateway
             .send<Unit>(DeployMowerCommand(plateauId, id, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction.uppercase()))
             .thenApply { MowerOutputDto(id, plateauId, mowerInputDto.x, mowerInputDto.y, mowerInputDto.direction) }
+            .thenApply { m ->
+                m.add(
+                    linkTo(methodOn(GetMowerController::class.java).handleRequest(m.getId())).withSelfRel(),
+                    linkTo(methodOn(GetPlateauController::class.java).handleRequest(m.getPlateauId())).withRel("plateau")
+                )
+            }
     }
 
     @MutationMapping

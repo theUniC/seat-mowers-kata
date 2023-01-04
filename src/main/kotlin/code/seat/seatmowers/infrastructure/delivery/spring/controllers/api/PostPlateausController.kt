@@ -12,12 +12,14 @@ import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.hateoas.mediatype.problem.Problem
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import java.util.Optional
 import java.util.UUID
 import java.util.concurrent.Future
 import javax.validation.Valid
@@ -32,12 +34,17 @@ class PostPlateausController(val commandGateway: CommandGateway) {
         ApiResponse(description = "When the given plateau does not exist", responseCode = "404"),
         ApiResponse(description = "When provided data is not correct", responseCode = "400", content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))])
     )
-    @ResponseBody
     fun handleRequest(@Valid @RequestBody plateauInputDto: PlateauInputDto): Future<PlateauOutputDto> {
         val plateauId = UUID.randomUUID()
         return commandGateway
             .send<Any>(CreatePlateauCommand(plateauId, plateauInputDto.x, plateauInputDto.y))
             .thenApply { PlateauOutputDto(plateauId, plateauInputDto.x, plateauInputDto.y) }
+            .thenApply { p ->
+                p.add(
+                    linkTo(methodOn(GetPlateauController::class.java).handleRequest(plateauId)).withSelfRel(),
+                    linkTo(methodOn(GetPlateausController::class.java).handleRequest(Optional.empty(), Optional.empty())).withRel("mowers")
+                )
+            }
     }
 
     @MutationMapping

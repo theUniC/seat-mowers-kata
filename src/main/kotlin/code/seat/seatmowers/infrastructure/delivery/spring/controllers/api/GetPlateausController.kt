@@ -17,7 +17,6 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 import java.util.Optional
 import java.util.concurrent.Future
@@ -29,10 +28,18 @@ class GetPlateausController(val queryGateway: QueryGateway) {
     @ApiResponses(
         ApiResponse(description = "The plateaus collection", content = [Content(mediaType = "application/hal+json", array = ArraySchema(schema = Schema(implementation = PlateauOutputDto::class)))])
     )
-    @ResponseBody
     fun handleRequest(@RequestParam offset: Optional<Int>, @RequestParam limit: Optional<Int>): Future<CollectionModel<PlateauOutputDto>> =
         queryGateway
             .query(GetAllPlateausQuery(offset.orElse(0), limit.orElse(10)), ResponseTypes.multipleInstancesOf(PlateauOutputDto::class.java))
+            .thenApply { ps ->
+                ps.forEach { p ->
+                    p.add(
+                        linkTo(methodOn(GetPlateauController::class.java).handleRequest(p.getId())).withSelfRel(),
+                        linkTo(methodOn(GetPlateauMowersController::class.java).handleRequest(p.getId())).withRel("mowers")
+                    )
+                }
+                ps
+            }
             .thenApply { ps ->
                 CollectionModel
                     .of(ps, linkTo(methodOn(GetPlateausController::class.java).handleRequest(Optional.empty(), Optional.empty())).withSelfRel())

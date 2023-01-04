@@ -20,24 +20,31 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 import java.util.concurrent.Future
 
 @RestController
-@Tag(name = "Mower")
+@Tag(name = "Plateau")
 class GetPlateauMowersController(val queryGateway: QueryGateway) {
     @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/hal+json"])
     @ApiResponses(
         ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/hal+json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
         ApiResponse(description = "When the given plateau does not exist", responseCode = "404", content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))])
     )
-    @ResponseBody
     fun handleRequest(@PathVariable plateauId: UUID): Future<CollectionModel<MowerOutputDto>> =
         queryGateway
             .query(GetAllPlateauMowersQuery(plateauId), ResponseTypes.multipleInstancesOf(MowerOutputDto::class.java))
+            .thenApply { ms ->
+                ms.forEach { m ->
+                    m.add(
+                        linkTo(methodOn(GetMowerController::class.java).handleRequest(m.getId())).withSelfRel(),
+                        linkTo(methodOn(GetPlateauController::class.java).handleRequest(m.getPlateauId())).withRel("plateau")
+                    )
+                }
+                ms
+            }
             .thenApply { ms ->
                 CollectionModel
                     .of(ms, linkTo(methodOn(GetPlateauMowersController::class.java).handleRequest(plateauId)).withSelfRel())
