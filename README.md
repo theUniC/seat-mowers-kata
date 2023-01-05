@@ -2,8 +2,6 @@
 
 # Seat Mowers Kata
 
----
-
 An example application to test out some JVM-related tecnologies
 
 <p align="center">
