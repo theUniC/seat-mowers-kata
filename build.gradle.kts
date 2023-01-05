@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     java
@@ -105,10 +106,14 @@ tasks.withType<Test> {
     }
 }
 
+tasks.withType<BootJar> {
+    archiveFileName.set("seat-mowers.jar")
+}
+
 flyway {
-    url = env.FLYWAY_URL.value
-    user = env.FLYWAY_USERNAME.value
-    password = env.FLYWAY_PASSWORD.value
+    url = System.getenv("FLYWAY_URL") ?: env.FLYWAY_URL.value
+    user = System.getenv("FLYWAY_USER") ?: env.FLYWAY_USER.value
+    password = System.getenv("FLYWAY_PASSWORD") ?: env.FLYWAY_PASSWORD.value
     driver = "com.mysql.cj.jdbc.Driver"
 }
 

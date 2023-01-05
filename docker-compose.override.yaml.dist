@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  application:
+    build:
+        context: .
+        args:
+            FLYWAY_URL: jdbc:mysql://mysql:3306/mowers
+            FLYWAY_USERNAME: mowers
+            FLYWAY_PASSWORD: 9To5EMRv!6d3
+    ports:
+      - "8080:8080"
+    environment:
+        DATABASE_URL: jdbc:mysql://mysql:3306/mowers
+        DATABASE_USERNAME: mowers
+        DATABASE_PASSWORD: 9To5EMRv!6d3

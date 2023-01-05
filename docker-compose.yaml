@@ -6,7 +6,17 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 1234Abcd
-      MYSQL_USER: chinook
-      MYSQL_PASSWORD: 1234Abcd
-      MYSQL_DATABASE: chinook
+      MYSQL_ROOT_PASSWORD: 738J@kFfB785
+      MYSQL_USER: mowers
+      MYSQL_PASSWORD: 9To5EMRv!6d3
+      MYSQL_DATABASE: mowers
+  flyway:
+      image: flyway/flyway:9.11.0-alpine
+      command: migrate
+      profiles: [db-migrations]
+      volumes:
+          - ./src/main/resources/db/migration:/flyway/sql
+      environment:
+          FLYWAY_URL: jdbc:mysql://mysql:3306/mowers?allowPublicKeyRetrieval=true&useSSL=false
+          FLYWAY_USER: mowers
+          FLYWAY_PASSWORD: 9To5EMRv!6d3

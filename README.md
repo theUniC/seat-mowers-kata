@@ -1,6 +1,24 @@
-<h1 align="center"> Seat Code - Mower Kata </h1> <br>
+<div align="center">
 
-## Instructions for the challenge
+# Seat Mowers Kata
+
+---
+
+An example application to test out some JVM-related tecnologies
+
+<p align="center">
+  <a href="#instructions">Instructions</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#getting-started">Getting started</a> •
+  <a href="#accessing-the-application">Accessing the application</a>
+</p>
+
+</div>
+
+## Instructions
+
+<details>
+<summary>Instructions for the challenge</summary>
 
 SEAT:CODE has been asked for a really important project. We need to develop an application that helps in controlling brand new mowers
 from the SEAT Martorell Factory.
@@ -48,3 +66,16 @@ Output Test Case #2:
 1 3 N
 5 1 E
 ```
+</details>
+
+## Tech Stack
+
+TBD
+
+## Getting Started
+
+TBD
+
+## Accessing the application
+
+TBD
