@@ -120,7 +120,7 @@ object MowerSpec : Spek({
                     .`when`(MoveMowerCommand(plateauId, roverId, "M"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT, "NORTH"))
-                    .expectState { p -> Assertions.assertEquals(Coordinates(VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT), p.rovers().first().position().coordinates) }
+                    .expectState { p -> Assertions.assertEquals(Coordinates(VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT), p.mowers().first().position().coordinates) }
             }
 
             it("is turned left successfully") {
@@ -131,7 +131,7 @@ object MowerSpec : Spek({
                     .`when`(MoveMowerCommand(plateauId, roverId, "L"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "WEST"))
-                    .expectState { p -> Assertions.assertEquals(Direction.NORTH.left(), p.rovers().first().position().direction) }
+                    .expectState { p -> Assertions.assertEquals(Direction.NORTH.left(), p.mowers().first().position().direction) }
             }
 
             it("is turned right successfully") {
@@ -142,7 +142,7 @@ object MowerSpec : Spek({
                     .`when`(MoveMowerCommand(plateauId, roverId, "R"))
                     .expectSuccessfulHandlerExecution()
                     .expectEvents(MowerWasMoved(plateauId, roverId, VALID_COORDINATE_COMPONENT, VALID_COORDINATE_COMPONENT - 1, "EAST"))
-                    .expectState { p -> Assertions.assertEquals(Direction.NORTH.right(), p.rovers().first().position().direction) }
+                    .expectState { p -> Assertions.assertEquals(Direction.NORTH.right(), p.mowers().first().position().direction) }
             }
         }
     }

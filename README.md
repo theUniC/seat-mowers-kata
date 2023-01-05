@@ -10,7 +10,8 @@ An example application to test out some JVM-related tecnologies
   <a href="#instructions">Instructions</a> •
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#getting-started">Getting started</a> •
-  <a href="#accessing-the-application">Accessing the application</a>
+  <a href="#accessing-the-application">Accessing the application</a> •
+  <a href="#design-considerations">Design considerations</a>
 </p>
 
 </div>
@@ -77,5 +78,9 @@ TBD
 TBD
 
 ## Accessing the application
+
+TBD
+
+## Design considerations
 
 TBD

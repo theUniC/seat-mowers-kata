@@ -36,10 +36,10 @@ class Plateau {
     }
 
     fun coordinates() = coordinates
-    fun rovers() = mowers.values.toList()
+    fun mowers() = mowers.values.toList()
 
     @CommandHandler
-    fun deployRover(command: DeployMowerCommand) {
+    fun deployMower(command: DeployMowerCommand) {
         assertCoordinatesAreWithinPlateauBounds(command.x, command.y)
         assertDirectionIsValid(command.direction)
         assertPositionIsNotOccupied(Position(Coordinates(command.x, command.y), Direction.fromLiteral(command.direction)))
@@ -48,7 +48,7 @@ class Plateau {
     }
 
     @CommandHandler
-    fun moveRover(command: MoveMowerCommand) {
+    fun moveMower(command: MoveMowerCommand) {
         assertMovementIsValid(command.to)
         assertRoverExists(command.mowerId)
 
