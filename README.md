@@ -78,6 +78,50 @@ Output Test Case #2:
 
 ## Getting Started
 
+This repository supports two ways to run the application: locally or fully dockerized. Anyway this is what you should do to get started 👇
+
+### Clone the code
+
+    git clone https://github.com/theUniC/seat-mowers-kata.git
+    cd seat-mowers-kata
+
+### Running the application locally
+
+#### Requirements
+
+* [Docker](https://www.docker.com/products/docker-desktop/)
+* [SDKMan](https://sdkman.io/install)
+
+### Install the required version of Java and gradle 
+
+For this SDKMan comes in very handy
+
+    sdk env
+
+#### Start the database
+
+    docker compose up -d
+
+#### Create an .env file
+
+This application uses dotenv files to handle the environment-depedent configuration.
+
+    cp .env.example .env
+
+#### Run database migrations
+
+    ./gradlew flywayMigrate -i
+
+#### Run the application
+
+    ./gradlew build bootRun
+
+#### Run the unit tests
+
+    ./gradlew test
+
+### Running the application fully dockerized
+
 TBD
 
 ## Accessing the application
