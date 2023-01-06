@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/theUniC/seat-mowers-kata/main/public/logo.png" alt="logo">
+<img src="https://raw.githubusercontent.com/theUniC/seat-mowers-kata/main/logo.png" alt="logo">
 
 # Seat Mowers Kata
 
