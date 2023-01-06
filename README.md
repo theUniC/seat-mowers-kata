@@ -92,7 +92,7 @@ This repository supports two ways to run the application: locally or fully docke
 * [Docker](https://www.docker.com/products/docker-desktop/)
 * [SDKMan](https://sdkman.io/install)
 
-### Install the required version of Java and gradle 
+#### Install the required version of Java and gradle 
 
 For this SDKMan comes in very handy
 
