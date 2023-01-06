@@ -1,6 +1,8 @@
 type Query {
     plateaus(offset: Int, limit: Int): [Plateau]
     mowers(plateauId: ID!): [Mower]
+    mower(id: ID!): Mower
+    plateau(id: ID!): Plateau
 }
 
 type Mutation {
