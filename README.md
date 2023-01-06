@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/theUniC/seat-mowers-kata/main/public/logo.png" alt="logo">
+
 # Seat Mowers Kata
 
 An example application to test out some JVM-related tecnologies
@@ -18,7 +20,7 @@ An example application to test out some JVM-related tecnologies
 
 <details>
 <summary>Instructions for the challenge</summary>
-
+<br>
 SEAT:CODE has been asked for a really important project. We need to develop an application that helps in controlling brand new mowers
 from the SEAT Martorell Factory.
 
@@ -69,7 +71,10 @@ Output Test Case #2:
 
 ## Tech Stack
 
-TBD
+* Runtime 👉 JRE 17.0.5
+* Language 👉 Kotlin 1.8.0
+* Delivery Mechanism 👉 Spring Boot 2.7.7
+* Database 👉 MySQL 8.0.31
 
 ## Getting Started
 
