@@ -2,6 +2,7 @@ package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 
 import code.seat.seatmowers.application.query.getallplateaumowers.GetAllPlateauMowersQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
@@ -13,6 +14,7 @@ import org.axonframework.queryhandling.QueryGateway
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.hateoas.CollectionModel
+import org.springframework.hateoas.MediaTypes
 import org.springframework.hateoas.mediatype.problem.Problem
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
@@ -28,10 +30,11 @@ import java.util.concurrent.Future
 @RestController
 @Tag(name = "Plateau")
 class GetPlateauMowersController(val queryGateway: QueryGateway) {
-    @GetMapping("/plateaus/{plateauId}/mowers", produces = ["application/hal+json"])
+    @GetMapping("/plateaus/{plateauId}/mowers", produces = [MediaTypes.HAL_JSON_VALUE])
+    @Operation(summary = "Get all deployed mowers to a given plateau")
     @ApiResponses(
-        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = "application/hal+json", array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
-        ApiResponse(description = "When the given plateau does not exist", responseCode = "404", content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))])
+        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = MediaTypes.HAL_JSON_VALUE, array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
+        ApiResponse(description = "When the given plateau does not exist", responseCode = "404", content = [Content(mediaType = MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE, schema = Schema(implementation = Problem::class))])
     )
     fun handleRequest(@PathVariable plateauId: UUID): Future<CollectionModel<MowerOutputDto>> =
         queryGateway

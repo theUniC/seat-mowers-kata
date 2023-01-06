@@ -3,9 +3,12 @@ package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 import org.axonframework.modelling.command.AggregateNotFoundException
 import org.springframework.hateoas.mediatype.problem.Problem
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.validation.FieldError
+import org.springframework.web.HttpMediaTypeNotAcceptableException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
@@ -29,5 +32,11 @@ class ExceptionsHandlerController {
         return Problem.create()
             .withTitle("Invalid data")
             .withProperties(errors)
+    }
+
+    @ResponseBody
+    @ExceptionHandler(HttpMediaTypeNotAcceptableException::class)
+    fun handleHttpMediaTypeNotAcceptableException(ex: HttpMediaTypeNotAcceptableException): String {
+        return "acceptable MIME type:" + MediaType.APPLICATION_JSON_VALUE
     }
 }
