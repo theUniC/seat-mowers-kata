@@ -44,3 +44,7 @@ out/
 ### spring-shell ###
 spring-shell.log
 ### spring-shell ###
+
+###> docker ###
+docker-compose.override.yaml
+###< docker ###

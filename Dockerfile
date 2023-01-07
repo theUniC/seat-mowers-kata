@@ -7,7 +7,7 @@ ARG FLYWAY_PASSWORD
 ADD . /usr/local/opt/app
 WORKDIR /usr/local/opt/app
 
-RUN gradle clean build && \
+RUN gradle build && \
     cd build/libs && \
     java -Djarmode=layertools -jar seat-mowers.jar extract
 

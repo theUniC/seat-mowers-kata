@@ -6,7 +6,7 @@ services:
         context: .
         args:
             FLYWAY_URL: jdbc:mysql://mysql:3306/mowers
-            FLYWAY_USERNAME: mowers
+            FLYWAY_USER: mowers
             FLYWAY_PASSWORD: 9To5EMRv!6d3
     ports:
       - "8080:8080"

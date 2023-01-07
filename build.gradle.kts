@@ -111,9 +111,9 @@ tasks.withType<BootJar> {
 }
 
 flyway {
-    url = System.getenv("FLYWAY_URL") ?: env.FLYWAY_URL.value
-    user = System.getenv("FLYWAY_USER") ?: env.FLYWAY_USER.value
-    password = System.getenv("FLYWAY_PASSWORD") ?: env.FLYWAY_PASSWORD.value
+    url = System.getenv("FLYWAY_URL") ?: env.fetchOrNull("FLYWAY_URL")
+    user = System.getenv("FLYWAY_USER") ?: env.fetchOrNull("FLYWAY_USER")
+    password = System.getenv("FLYWAY_PASSWORD") ?: env.fetchOrNull("FLYWAY_PASSWORD")
     driver = "com.mysql.cj.jdbc.Driver"
 }
 
