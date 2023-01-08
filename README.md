@@ -148,12 +148,21 @@ And then start services up again
 
 The application has several endpoints of interest
 
+* Web frontend
 * [REST and OpenAPI](#rest-and-openapi)
 * [GraphQL](#graphql)
 
-### REST and OpenAPI
+### Web frontend
 
----
+The application has a web frontend made specifically to run instructions in the from described in the [instructions section](#instructions). It can be accessed at
+
+**http://127.0.0.1:8080/api/instructions**
+
+Additionally executions are saved to later check them again at
+
+**http://127.0.0.1:8080/api/executions**
+
+### REST and OpenAPI
 
 To access the REST API there is a swagger UI endpoint at
 
@@ -167,8 +176,6 @@ Additionally an exported Postman collection is provided [here](.postman/seat-mow
 
 ### GraphQL
 
----
-
 The application also supports GraphQL in this endpoint
 
 **http://127.0.0.1:8080/api/graphql**
@@ -179,4 +186,7 @@ And can be queried using GraphiQL at this URL
 
 ## Design considerations
 
-TBD
+* This application uses Tactical DDD to better implement the *Ubiquitous Language* defined at the [instructions section](#instructions).
+* As application architecture it is using Event Sourcing + CQRS, as it's using [Axon Framework](https://docs.axoniq.io/reference-guide/axon-framework/introduction) to handle domain messages and the default mode of this framework is Event Sourcing.
+* When a mower tries to move to an occupied position, then an exception is thrown. It can be changed to do nothing pretty easily.
+* There's just a single Aggregate – [Plateau](src/main/kotlin/code/seat/seatmowers/domainmodel/plateau/Plateau.kt) which receives all the Commands. That is it acts both as an Aggregate and as a Command Handler.
