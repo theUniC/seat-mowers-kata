@@ -2,8 +2,8 @@ package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 
 import code.seat.seatmowers.application.query.getallplateaus.GetAllPlateausQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauOutputDto
+import code.seat.seatmowers.infrastructure.delivery.spring.dtos.PlateauOutputDtoCollection
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -29,7 +29,7 @@ class GetPlateausController(val queryGateway: QueryGateway) {
     @GetMapping("/plateaus", produces = [MediaTypes.HAL_JSON_VALUE])
     @Operation(summary = "Get all the plateaus")
     @ApiResponses(
-        ApiResponse(description = "The plateaus collection", content = [Content(mediaType = MediaTypes.HAL_JSON_VALUE, array = ArraySchema(schema = Schema(implementation = PlateauOutputDto::class)))])
+        ApiResponse(description = "The plateaus collection", content = [Content(mediaType = MediaTypes.HAL_JSON_VALUE, schema = Schema(implementation = PlateauOutputDtoCollection::class))])
     )
     fun handleRequest(@RequestParam offset: Optional<Int>, @RequestParam limit: Optional<Int>): Future<CollectionModel<PlateauOutputDto>> =
         queryGateway
@@ -44,8 +44,10 @@ class GetPlateausController(val queryGateway: QueryGateway) {
                 ps
             }
             .thenApply { ps ->
-                CollectionModel
-                    .of(ps, linkTo(methodOn(GetPlateausController::class.java).handleRequest(Optional.empty(), Optional.empty())).withSelfRel())
+                PlateauOutputDtoCollection(ps)
+                    .add(
+                        linkTo(methodOn(GetPlateausController::class.java).handleRequest(Optional.empty(), Optional.empty())).withSelfRel()
+                    )
             }
 
     @QueryMapping

@@ -122,11 +122,55 @@ This application uses dotenv files to handle the environment-depedent configurat
 
 ### Running the application fully dockerized
 
-TBD
+#### Requirements
+
+To run the application fully dockerized you only need to have [Docker](https://www.docker.com/products/docker-desktop/) installed
+
+#### Start the database and run migrations
+
+    docker compose up -d
+
+Wait a few seconds until MySQL is ready and then
+
+    docker compose run --profile db-migrations run flyway
+
+#### Run the application
+
+The application container is defined in the `docker-compose.override.yaml.dist` so you will need to copy it with a new file name of `docker-compose.override.yaml`
+
+    cp docker-compose.override.yaml.dist docker-compose.override.yaml
+
+And then start services up again
+
+    docker-compose up -d
 
 ## Accessing the application
 
-TBD
+The application has several endpoints of interest
+
+* [REST and OpenAPI](#rest-and-openapi)
+
+### REST and OpenAPI
+
+To access the REST API there is a swagger UI endpoint at
+
+**http://127.0.0.1:8080/api/swagger-ui/index.html**
+
+And the OpenAPI document can be accessed
+
+**http://127.0.0.1:8080/api/v3/api-docs**
+
+Additionally an exported Postman collection is provided [here](.postman/seat-mowers.postman_collection.json).
+
+### GraphQL
+
+The application also supports GraphQL in this endpoint
+
+**http://127.0.0.1:8080/api/graphql**
+
+And can be queried using GraphiQL at this URL
+
+**http://127.0.0.1:8080/api/graphiql**
 
 ## Design considerations
 

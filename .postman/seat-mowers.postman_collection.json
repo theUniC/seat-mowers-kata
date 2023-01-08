@@ -1,0 +1,1197 @@
+{
+	"info": {
+		"_postman_id": "6f6a1110-86a1-48f9-8e87-3fddcc656518",
+		"name": "Seat Mowers Open API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9921547"
+	},
+	"item": [
+		{
+			"name": "Plateau",
+			"item": [
+				{
+					"name": "Mower",
+					"item": [
+						{
+							"name": "Get all deployed mowers to a given plateau",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus",
+										":plateauId",
+										"mowers"
+									],
+									"variable": [
+										{
+											"key": "plateauId",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "When the given plateau does not exist",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"type\": \"https://AIrzcdYOHRBpuQVDfjSdHkdAuExBjZmY.smsSQZj7nEwoTMH-8L6Wv9QOCLmMRRjwtxPuhlaAYiTU5Ddz+uEu+6pF.VNZNkOEzch63DzIk0uK\",\n  \"title\": \"commodo proident\",\n  \"status\": -65263184,\n  \"detail\": \"officia in deserunt\",\n  \"instance\": \"http://fAxStyEPGTknimoVWitliKC.oeoPCehf2pEBVSXwgKIe3AWPZWx7J5WMiROjU\"\n}"
+								},
+								{
+									"name": "All the deployed mowers from a given plateau",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/hal+json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"_embedded\": {\n    \"mowers\": [\n      {\n        \"direction\": \"mollit ipsum id commodo\",\n        \"id\": \"urn:uuid:09485920-2652-4c31-4b27-babb6f77ad47\",\n        \"plateauId\": \"urn:uuid:bfaa1ad0-d724-8f27-efc1-3ce62c197727\",\n        \"x\": 73245434,\n        \"y\": 47928454,\n        \"_links\": {\n          \"laborum1\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"aliquip12\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      {\n        \"direction\": \"ea in a\",\n        \"id\": \"urn:uuid:c931dcc5-069b-39aa-d08f-0fb3b520ad2a\",\n        \"plateauId\": \"2302c44b-8810-c3ce-7729-93f61a271a72\",\n        \"x\": -11775594,\n        \"y\": -16161045,\n        \"_links\": {\n          \"sed_c5\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"velit_e7\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"dolor_8c3\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    ]\n  },\n  \"_links\": {\n    \"quis_10\": {\n      \"href\": \"in ullamco adipisicing\",\n      \"hreflang\": \"ex\",\n      \"title\": \"do aliquip\",\n      \"type\": \"ut ut sint id eiusmod\",\n      \"deprecation\": \"enim do sunt aliqua dolore\",\n      \"profile\": \"id sunt dolor eu\",\n      \"name\": \"incididunt dolor nostrud mollit\",\n      \"templated\": false\n    },\n    \"sunt_ee0\": {\n      \"href\": \"ad dolor sunt elit\",\n      \"hreflang\": \"esse fugiat ipsum\",\n      \"title\": \"quis ad\",\n      \"type\": \"deserunt Excepteur elit\",\n      \"deprecation\": \"officia voluptate veniam\",\n      \"profile\": \"amet quis nisi eiusmod\",\n      \"name\": \"qui ipsum consequat incididunt amet\",\n      \"templated\": true\n    },\n    \"ipsum_6d\": {\n      \"href\": \"sit Lorem\",\n      \"hreflang\": \"officia mollit\",\n      \"title\": \"in esse\",\n      \"type\": \"id nisi ad\",\n      \"deprecation\": \"eu \",\n      \"profile\": \"et aute in\",\n      \"name\": \"ut\",\n      \"templated\": true\n    }\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "Deploy a mower to a given plateau",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/hal+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"direction\": \"s\",\n  \"x\": -80862382,\n  \"y\": -58972364\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus",
+										":plateauId",
+										"mowers"
+									],
+									"variable": [
+										{
+											"key": "plateauId",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "The deployed mower",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"direction\": \"s\",\n  \"x\": -80862382,\n  \"y\": -58972364\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/hal+json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"direction\": \"ut velit no\",\n  \"id\": \"urn:uuid:842d9296-8673-67da-95cd-f42680e95f35\",\n  \"plateauId\": \"fbfa9099-5ecf-1400-e832-6a2a5f9ce788\",\n  \"x\": 31681988,\n  \"y\": 23920253,\n  \"_links\": {\n    \"ullamco_ae\": {\n      \"href\": \"in nostrud do qui sit\",\n      \"hreflang\": \"voluptate dolore tempor dolore\",\n      \"title\": \"mollit in do enim\",\n      \"type\": \"consequat aliqua dolore\",\n      \"deprecation\": \"dolor sit\",\n      \"profile\": \"occaecat laboris nisi ea\",\n      \"name\": \"minim reprehenderit\",\n      \"templated\": false\n    }\n  }\n}"
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"direction\": \"s\",\n  \"x\": -80862382,\n  \"y\": -58972364\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/hal+json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"cancelled\": true,\n  \"done\": true\n}"
+								},
+								{
+									"name": "When provided data is not valid",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"direction\": \"s\",\n  \"x\": -80862382,\n  \"y\": -58972364\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"type\": \"https://AIrzcdYOHRBpuQVDfjSdHkdAuExBjZmY.smsSQZj7nEwoTMH-8L6Wv9QOCLmMRRjwtxPuhlaAYiTU5Ddz+uEu+6pF.VNZNkOEzch63DzIk0uK\",\n  \"title\": \"commodo proident\",\n  \"status\": -65263184,\n  \"detail\": \"officia in deserunt\",\n  \"instance\": \"http://fAxStyEPGTknimoVWitliKC.oeoPCehf2pEBVSXwgKIe3AWPZWx7J5WMiROjU\"\n}"
+								},
+								{
+									"name": "When the given plateau does not exist",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"direction\": \"s\",\n  \"x\": -80862382,\n  \"y\": -58972364\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "anim cillum do"
+								}
+							]
+						},
+						{
+							"name": "Move a mower on a given plateau",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"movement\": \"r\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/plateaus/:plateauId/mowers/:mowerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus",
+										":plateauId",
+										"mowers",
+										":mowerId"
+									],
+									"variable": [
+										{
+											"key": "plateauId",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										},
+										{
+											"key": "mowerId",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "When the move has been done correctly",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"movement\": \"r\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers/:mowerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers",
+												":mowerId"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												},
+												{
+													"key": "mowerId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "When provided data is not correct",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"movement\": \"r\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers/:mowerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers",
+												":mowerId"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												},
+												{
+													"key": "mowerId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"type\": \"https://AIrzcdYOHRBpuQVDfjSdHkdAuExBjZmY.smsSQZj7nEwoTMH-8L6Wv9QOCLmMRRjwtxPuhlaAYiTU5Ddz+uEu+6pF.VNZNkOEzch63DzIk0uK\",\n  \"title\": \"commodo proident\",\n  \"status\": -65263184,\n  \"detail\": \"officia in deserunt\",\n  \"instance\": \"http://fAxStyEPGTknimoVWitliKC.oeoPCehf2pEBVSXwgKIe3AWPZWx7J5WMiROjU\"\n}"
+								},
+								{
+									"name": "When the given plateau does not exist",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"movement\": \"r\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/plateaus/:plateauId/mowers/:mowerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"plateaus",
+												":plateauId",
+												"mowers",
+												":mowerId"
+											],
+											"variable": [
+												{
+													"key": "plateauId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												},
+												{
+													"key": "mowerId",
+													"value": "42063c92-2d55-db8b-5734-776726be8752",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "anim cillum do"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get all the plateaus",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/plateaus?offset=-10571117&limit=-10571117",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"plateaus"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "-10571117"
+								},
+								{
+									"key": "limit",
+									"value": "-10571117"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus?offset=-10571117&limit=-10571117",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "-10571117"
+										},
+										{
+											"key": "limit",
+											"value": "-10571117"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus?offset=-10571117&limit=-10571117",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "-10571117"
+										},
+										{
+											"key": "limit",
+											"value": "-10571117"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "anim cillum do"
+						},
+						{
+							"name": "The plateaus collection",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus?offset=-10571117&limit=-10571117",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "-10571117"
+										},
+										{
+											"key": "limit",
+											"value": "-10571117"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"_embedded\": {\n    \"plateaus\": [\n      {\n        \"id\": \"urn:uuid:e85ee442-bc45-46f6-4475-b7cf07159ee5\",\n        \"x\": -33842565,\n        \"y\": 41583571,\n        \"_links\": {\n          \"nisi_8c\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      {\n        \"id\": \"d85de377-73d1-cfec-292e-edcd5008f601\",\n        \"x\": 84054608,\n        \"y\": 55163910,\n        \"_links\": {\n          \"commodo7\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"quis8_\": {\n            \"href\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"hreflang\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"profile\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"templated\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    ]\n  },\n  \"_links\": {\n    \"ex_cb1\": {\n      \"href\": \"sit irure sunt\",\n      \"hreflang\": \"qui esse non adipisicing\",\n      \"title\": \"de\",\n      \"type\": \"dolore proident\",\n      \"deprecation\": \"minim nostrud adipisicing in\",\n      \"profile\": \"adipisici\",\n      \"name\": \"sint\",\n      \"templated\": false\n    },\n    \"Duis_5bd\": {\n      \"href\": \"dolore qui\",\n      \"hreflang\": \"reprehenderit id\",\n      \"title\": \"mollit sit voluptate ipsum ut\",\n      \"type\": \"laboris proident\",\n      \"deprecation\": \"elit adipisicing veniam aliqua\",\n      \"profile\": \"deserunt esse Duis\",\n      \"name\": \"cillum non aute ex\",\n      \"templated\": true\n    }\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a new plateau",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/hal+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"x\": 38992931,\n  \"y\": 87454118\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/plateaus",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"plateaus"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "The new plateau",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"x\": 38992931,\n  \"y\": 87454118\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/plateaus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"a0007029-09ad-acf8-1f26-635a099ddc49\",\n  \"x\": 84790401,\n  \"y\": -73425868,\n  \"_links\": {\n    \"temporbbb\": {\n      \"href\": \"ea in incididunt\",\n      \"hreflang\": \"nostrud amet ut ullamco\",\n      \"title\": \"culpa amet non de\",\n      \"type\": \"Lorem\",\n      \"deprecation\": \"Duis nostrud pariatur cillum\",\n      \"profile\": \"consectetur dolore dolore non cillum\",\n      \"name\": \"aute proident\",\n      \"templated\": false\n    }\n  }\n}"
+						},
+						{
+							"name": "Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"x\": 38992931,\n  \"y\": 87454118\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/plateaus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"cancelled\": true,\n  \"done\": true\n}"
+						},
+						{
+							"name": "When provided data is not correct",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"x\": 38992931,\n  \"y\": 87454118\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/plateaus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"type\": \"https://AIrzcdYOHRBpuQVDfjSdHkdAuExBjZmY.smsSQZj7nEwoTMH-8L6Wv9QOCLmMRRjwtxPuhlaAYiTU5Ddz+uEu+6pF.VNZNkOEzch63DzIk0uK\",\n  \"title\": \"commodo proident\",\n  \"status\": -65263184,\n  \"detail\": \"officia in deserunt\",\n  \"instance\": \"http://fAxStyEPGTknimoVWitliKC.oeoPCehf2pEBVSXwgKIe3AWPZWx7J5WMiROjU\"\n}"
+						},
+						{
+							"name": "When the given plateau does not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"x\": 38992931,\n  \"y\": 87454118\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/plateaus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "anim cillum do"
+						}
+					]
+				},
+				{
+					"name": "Get a plateau by its ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/plateaus/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"plateaus",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "42063c92-2d55-db8b-5734-776726be8752",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "When plateau was not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "anim cillum do"
+						},
+						{
+							"name": "The plateau",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plateaus/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"plateaus",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"a0007029-09ad-acf8-1f26-635a099ddc49\",\n  \"x\": 84790401,\n  \"y\": -73425868,\n  \"_links\": {\n    \"temporbbb\": {\n      \"href\": \"ea in incididunt\",\n      \"hreflang\": \"nostrud amet ut ullamco\",\n      \"title\": \"culpa amet non de\",\n      \"type\": \"Lorem\",\n      \"deprecation\": \"Duis nostrud pariatur cillum\",\n      \"profile\": \"consectetur dolore dolore non cillum\",\n      \"name\": \"aute proident\",\n      \"templated\": false\n    }\n  }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Mower",
+			"item": [
+				{
+					"name": "Get a mower by its ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/mowers/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mowers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "42063c92-2d55-db8b-5734-776726be8752",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/mowers/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"mowers",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "When given mower was not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/mowers/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"mowers",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "anim cillum do"
+						},
+						{
+							"name": "The mower",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/mowers/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"mowers",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42063c92-2d55-db8b-5734-776726be8752",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/hal+json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"direction\": \"ut velit no\",\n  \"id\": \"urn:uuid:842d9296-8673-67da-95cd-f42680e95f35\",\n  \"plateauId\": \"fbfa9099-5ecf-1400-e832-6a2a5f9ce788\",\n  \"x\": 31681988,\n  \"y\": 23920253,\n  \"_links\": {\n    \"ullamco_ae\": {\n      \"href\": \"in nostrud do qui sit\",\n      \"hreflang\": \"voluptate dolore tempor dolore\",\n      \"title\": \"mollit in do enim\",\n      \"type\": \"consequat aliqua dolore\",\n      \"deprecation\": \"dolor sit\",\n      \"profile\": \"occaecat laboris nisi ea\",\n      \"name\": \"minim reprehenderit\",\n      \"templated\": false\n    }\n  }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://127.0.0.1:8080/api",
+			"type": "string"
+		}
+	]
+}

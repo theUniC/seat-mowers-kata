@@ -63,6 +63,7 @@ dependencies {
     implementation("org.axonframework.extensions.kotlin:axon-kotlin:$axonKotlinVersion")
     implementation("me.paulschwarz:spring-dotenv:$springDotEnvVersion")
     implementation("org.springdoc:springdoc-openapi-ui:$springDocOpenApiVersion")
+    implementation("org.springdoc:springdoc-openapi-kotlin:$springDocOpenApiVersion")
     implementation("org.springdoc:springdoc-openapi-webmvc-core:$springDocOpenApiVersion")
     implementation("org.springdoc:springdoc-openapi-hateoas:$springDocOpenApiVersion")
     runtimeOnly("com.mysql:mysql-connector-j:$mysqlConnectorJavaVersion")

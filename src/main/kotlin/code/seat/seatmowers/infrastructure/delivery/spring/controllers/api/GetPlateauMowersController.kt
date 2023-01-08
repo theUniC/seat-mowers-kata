@@ -2,8 +2,8 @@ package code.seat.seatmowers.infrastructure.delivery.spring.controllers.api
 
 import code.seat.seatmowers.application.query.getallplateaumowers.GetAllPlateauMowersQuery
 import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDto
+import code.seat.seatmowers.infrastructure.delivery.spring.dtos.MowerOutputDtoCollection
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -33,7 +33,7 @@ class GetPlateauMowersController(val queryGateway: QueryGateway) {
     @GetMapping("/plateaus/{plateauId}/mowers", produces = [MediaTypes.HAL_JSON_VALUE])
     @Operation(summary = "Get all deployed mowers to a given plateau")
     @ApiResponses(
-        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = MediaTypes.HAL_JSON_VALUE, array = ArraySchema(schema = Schema(implementation = MowerOutputDto::class)))]),
+        ApiResponse(description = "All the deployed mowers from a given plateau", content = [Content(mediaType = MediaTypes.HAL_JSON_VALUE, schema = Schema(implementation = MowerOutputDtoCollection::class))]),
         ApiResponse(description = "When the given plateau does not exist", responseCode = "404", content = [Content(mediaType = MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE, schema = Schema(implementation = Problem::class))])
     )
     fun handleRequest(@PathVariable plateauId: UUID): Future<CollectionModel<MowerOutputDto>> =
@@ -49,8 +49,10 @@ class GetPlateauMowersController(val queryGateway: QueryGateway) {
                 ms
             }
             .thenApply { ms ->
-                CollectionModel
-                    .of(ms, linkTo(methodOn(GetPlateauMowersController::class.java).handleRequest(plateauId)).withSelfRel())
+                MowerOutputDtoCollection(ms)
+                    .add(
+                        linkTo(methodOn(GetPlateauMowersController::class.java).handleRequest(plateauId)).withSelfRel()
+                    )
             }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
