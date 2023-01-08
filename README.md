@@ -189,4 +189,4 @@ And can be queried using GraphiQL at this URL
 * This application uses Tactical DDD to better implement the *Ubiquitous Language* defined at the [instructions section](#instructions).
 * As application architecture it is using Event Sourcing + CQRS, as it's using [Axon Framework](https://docs.axoniq.io/reference-guide/axon-framework/introduction) to handle domain messages and the default mode of this framework is Event Sourcing.
 * When a mower tries to move to an occupied position, then an exception is thrown. It can be changed to do nothing pretty easily.
-* There's just a single Aggregate – [Plateau](src/main/kotlin/code/seat/seatmowers/domainmodel/plateau/Plateau.kt) which receives all the Commands. That is it acts both as an Aggregate and as a Command Handler.
+* There's just a single Aggregate – [Plateau](src/main/kotlin/code/seat/seatmowers/domainmodel/plateau/Plateau.kt) – which receives all the Commands. That is it acts both as an Aggregate and as a Command Handler. This has been done that way because we need inmediate consistency between both Plateau and deployed mowers.
