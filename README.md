@@ -149,8 +149,11 @@ And then start services up again
 The application has several endpoints of interest
 
 * [REST and OpenAPI](#rest-and-openapi)
+* [GraphQL](#graphql)
 
 ### REST and OpenAPI
+
+---
 
 To access the REST API there is a swagger UI endpoint at
 
@@ -163,6 +166,8 @@ And the OpenAPI document can be accessed
 Additionally an exported Postman collection is provided [here](.postman/seat-mowers.postman_collection.json).
 
 ### GraphQL
+
+---
 
 The application also supports GraphQL in this endpoint
 
